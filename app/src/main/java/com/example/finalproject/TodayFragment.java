@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -159,4 +160,29 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
         SetNotificationDialog dialog = new SetNotificationDialog(task);
         dialog.show(getChildFragmentManager(), "SetNotificationDialog");
     }
+
+    @Override
+    public void onShareEmailClick(Task task) {
+        String taskTitle = task.getTitle();
+        String taskDescription = task.getDescription();
+        String taskDueDate = task.getDueDate();
+        String taskDueTime = task.getDueTime();
+
+        // Create an Intent to share the task details via email
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setType("message/rfc822");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{}); // Add recipient email addresses if needed
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Task Reminder: " + taskTitle);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Task Title: " + taskTitle + "\n" +
+                "Description: " + taskDescription + "\n" +
+                "Due Date: " + taskDueDate + " " + taskDueTime + "\n" +
+                "Priority: " + task.getPriority());
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send email..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getContext(), "No email client installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

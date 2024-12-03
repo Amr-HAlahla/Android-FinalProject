@@ -63,9 +63,18 @@ public class SetNotificationDialog extends AppCompatDialogFragment {
             tvRemainingTime.setText("Invalid deadline");
         }
 
-        // Display current reminder time
+        // Check if reminder time has passed and display the appropriate message
         if (!TextUtils.isEmpty(task.getReminderTime())) {
-            tvCurrentNotification.setText("Current Notification: " + task.getReminderTime());
+            String reminderTime = task.getReminderTime();
+            Calendar reminderCalendar = getReminderCalendar(reminderTime);
+            if (reminderCalendar != null && reminderCalendar.before(now)) {
+                // If the reminder time has passed
+                tvCurrentNotification.setText("Current Notification: None");
+            } else {
+                // If the reminder time is still valid
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+                tvCurrentNotification.setText("Current Notification: " + reminderTime);
+            }
         } else {
             tvCurrentNotification.setText("Current Notification: None");
         }
@@ -124,6 +133,18 @@ public class SetNotificationDialog extends AppCompatDialogFragment {
         btnCancel.setOnClickListener(v -> dismiss());
 
         return dialog;
+    }
+
+    private Calendar getReminderCalendar(String reminderTime) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(sdf.parse(reminderTime));
+            return calendar;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private Calendar getDeadlineCalendar(String dueDate, String dueTime) {

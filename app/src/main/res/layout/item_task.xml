@@ -76,5 +76,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Set Notification" />
+
+        <!-- New Email Share Button -->
+        <ImageButton
+            android:id="@+id/btn_share_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:contentDescription="Share Task via Email"
+            android:src="@drawable/ic_email" />
     </LinearLayout>
 </LinearLayout>

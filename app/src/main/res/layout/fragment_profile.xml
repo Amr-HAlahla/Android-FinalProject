@@ -5,19 +5,33 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Current Password Field -->
+    <EditText
+        android:id="@+id/et_current_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Current Password"
+        android:inputType="textPassword" />
+
+    <!-- Email Address Field -->
     <EditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:hint="Email Address" />
 
+    <!-- New Password Field -->
     <EditText
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:layout_marginBottom="16dp"
+        android:hint="New Password"
         android:inputType="textPassword" />
 
+    <!-- Save Button -->
     <Button
         android:id="@+id/btn_save"
         android:layout_width="match_parent"

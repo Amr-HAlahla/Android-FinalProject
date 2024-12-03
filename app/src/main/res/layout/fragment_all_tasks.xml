@@ -5,13 +5,21 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/text_all_tasks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="All Tasks"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+    <!-- RecyclerView to display all tasks -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_all_tasks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <!-- You can use a RecyclerView to display tasks sorted chronologically -->
+    <!-- TextView to show when there are no tasks -->
+    <TextView
+        android:id="@+id/text_no_tasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="No tasks!"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
 </LinearLayout>

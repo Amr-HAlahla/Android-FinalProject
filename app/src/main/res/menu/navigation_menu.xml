@@ -21,6 +21,11 @@
         android:title="Completed" />
 
     <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/search"
+        android:title="Search" />
+
+    <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/profile"
         android:title="Profile" />

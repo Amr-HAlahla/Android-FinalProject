@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
-import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,16 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.CalendarConstraints;
-import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,11 +24,12 @@ import java.util.Locale;
 
 public class NewTaskFragment extends Fragment {
 
-    private TextInputEditText etDueDate;
+    private TextInputEditText etDueDate, etDueTime;
     private Spinner spPriority;
     private Button btnSave;
     private TextInputEditText etTitle, etDescription;
-    private String selectedPriority = "Low"; // Default priority
+    private String selectedPriority = "Medium"; // Default priority
+    private DatabaseHelper db;
 
     public NewTaskFragment() {
         // Required empty public constructor
@@ -46,11 +45,17 @@ public class NewTaskFragment extends Fragment {
         etTitle = rootView.findViewById(R.id.et_title);
         etDescription = rootView.findViewById(R.id.et_description);
         etDueDate = rootView.findViewById(R.id.et_due_date);
+        etDueTime = rootView.findViewById(R.id.et_due_time);
         spPriority = rootView.findViewById(R.id.sp_priority);
         btnSave = rootView.findViewById(R.id.btn_save);
 
+        db = new DatabaseHelper(getContext());
+
         // Set up the Due Date picker (MaterialDatePicker)
         etDueDate.setOnClickListener(v -> showMaterialDatePicker());
+
+        // Set up the Due Time picker
+        etDueTime.setOnClickListener(v -> showTimePicker());
 
         // Set up the Priority Spinner (Drop-down menu)
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
@@ -76,42 +81,73 @@ public class NewTaskFragment extends Fragment {
     }
 
     private void showMaterialDatePicker() {
-        // Initialize Calendar instance
         Calendar calendar = Calendar.getInstance();
-        long today = calendar.getTimeInMillis();
-
-        // Set up the Material Date Picker
         MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select Due Date")
-                .setSelection(today)  // Default to today
-                .setCalendarConstraints(new CalendarConstraints.Builder()
-                        .setValidator(DateValidatorPointForward.from(today))  // Only allow future dates
-                        .build())
+                .setSelection(calendar.getTimeInMillis())
                 .build();
 
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {
             Calendar selectedDate = Calendar.getInstance();
             selectedDate.setTimeInMillis(selection);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-            etDueDate.setText(dateFormat.format(selectedDate.getTime()));
+
+            // Use ISO 8601 format for consistent parsing
+            SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            etDueDate.setText(isoDateFormat.format(selectedDate.getTime()));
         });
 
         materialDatePicker.show(getChildFragmentManager(), materialDatePicker.toString());
+    }
+
+    private void showTimePicker() {
+        Calendar calendar = Calendar.getInstance();
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                (view, hourOfDay, minuteOfHour) -> {
+                    // Use ISO 8601 time format with seconds
+                    String time = String.format(Locale.getDefault(), "%02d:%02d:00", hourOfDay, minuteOfHour);
+                    etDueTime.setText(time);
+                },
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                true);
+
+        timePickerDialog.show();
     }
 
     private void saveTask() {
         String title = etTitle.getText().toString().trim();
         String description = etDescription.getText().toString().trim();
         String dueDate = etDueDate.getText().toString().trim();
+        String dueTime = etDueTime.getText().toString().trim();
 
-        // Save the task (You can implement saving to a database or list here)
-        // For now, we can log or display the task details
-        System.out.println("Title: " + title);
-        System.out.println("Description: " + description);
-        System.out.println("Due Date: " + dueDate);
-        System.out.println("Priority: " + selectedPriority);
+        // Validate future date/time
+        try {
+            SimpleDateFormat fullDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            Calendar selectedDateTime = Calendar.getInstance();
+            selectedDateTime.setTime(fullDateTimeFormat.parse(dueDate + " " + dueTime));
 
-        // Optionally, show a Toast or notification to confirm the task is saved
-        Toast.makeText(getContext(), "Task saved successfully!", Toast.LENGTH_SHORT).show();
+            if (selectedDateTime.before(Calendar.getInstance())) {
+                Toast.makeText(getContext(), "Please select a future date and time", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Invalid date or time", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Rest of the save task logic remains the same
+        boolean isSaved = db.insertTask(title, description, dueDate, dueTime, selectedPriority, 0, "", getLoggedInUserEmail());
+
+        if (isSaved) {
+            Toast.makeText(getContext(), "Task saved successfully!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Failed to save task", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String getLoggedInUserEmail() {
+        // Retrieve the logged-in user's email from SharedPreferences
+        SharedPreferences preferences = getContext().getSharedPreferences("TaskManagerPrefs", getContext().MODE_PRIVATE);
+        return preferences.getString("logged_in_user", "");
     }
 }

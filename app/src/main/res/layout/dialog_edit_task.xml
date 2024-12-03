@@ -1,60 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Title -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Task Title" />
+            android:hint="Task Title"
+            android:maxLength="50" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Description -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Task Description" />
+            android:hint="Task Description"
+            android:maxLength="200" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Due Date -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_due_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Due Date"
-            android:focusable="false" />
+            android:focusable="false"
+            android:hint="Due Date" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Due Time -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_due_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Due Time"
-            android:focusable="false" />
+            android:focusable="false"
+            android:hint="Due Time" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/sp_priority"
+    <!-- Priority -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
+        <Spinner
+            android:id="@+id/sp_priority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Save Button -->
     <Button
         android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Save Task" />
+
+    <!-- Cancel Button -->
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="Cancel"
+        android:textColor="@android:color/holo_red_dark" />
 </LinearLayout>

@@ -5,13 +5,33 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Title for the Completed Tasks -->
     <TextView
         android:id="@+id/text_completed_tasks"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
         android:text="Completed Tasks"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
-    <!-- RecyclerView to show completed tasks -->
+    <!-- RecyclerView to display the completed tasks -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_completed_tasks"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1" />
+
+    <!-- Empty State TextView (Hidden by default) -->
+    <TextView
+        android:id="@+id/text_empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="No completed tasks available."
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        android:visibility="gone" />
 </LinearLayout>

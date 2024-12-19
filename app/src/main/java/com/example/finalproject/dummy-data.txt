@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "title": "Buy groceries",
+        "description": "Buy fruits, vegetables, and snacks.",
+        "dueDate": "2024-12-10",
+        "dueTime": "10:00",
+        "priority": "High",
+        "completionStatus": 0,
+        "reminderTime": null
+    },
+    {
+        "id": 2,
+        "title": "Complete project report",
+        "description": "Write and submit the project report by the deadline.",
+        "dueDate": "2024-12-12",
+        "dueTime": "17:00",
+        "priority": "Medium",
+        "completionStatus": 0,
+        "reminderTime": null
+    },
+    {
+        "id": 3,
+        "title": "Doctor appointment",
+        "description": "Appointment with the dentist for routine checkup.",
+        "dueDate": "2024-12-15",
+        "dueTime": "14:00",
+        "priority": "Low",
+        "completionStatus": 0,
+        "reminderTime": null
+    }
+]

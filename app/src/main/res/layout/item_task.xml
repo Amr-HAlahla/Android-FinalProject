@@ -1,89 +1,280 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:background="?android:attr/selectableItemBackground"
-    android:orientation="vertical"
-    android:padding="12dp">
+    android:layout_margin="16dp"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="16dp">
 
-    <!-- Title -->
-    <TextView
-        android:id="@+id/task_title"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Task Title"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:padding="20dp">
 
-    <!-- Description -->
-    <TextView
-        android:id="@+id/task_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Task Description"
-        android:textSize="14sp" />
-
-    <!-- Due Date -->
-    <TextView
-        android:id="@+id/task_due_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Due Date"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="12sp" />
-
-    <!-- Priority -->
-    <TextView
-        android:id="@+id/task_priority"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Priority"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="12sp" />
-
-    <!-- Completion Checkbox -->
-    <CheckBox
-        android:id="@+id/task_completed_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Completed" />
-
-    <!-- Buttons: Edit, Delete, Set Notification -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_edit"
+        <!-- Task Title -->
+        <TextView
+            android:id="@+id/task_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Edit" />
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.164"
+            tools:text="Complete Project" />
 
-        <Button
-            android:id="@+id/btn_delete"
+        <!-- Divider (Spacer) -->
+        <View
+            android:id="@+id/divider"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Delete" />
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/dividerColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/task_title" />
 
-        <Button
-            android:id="@+id/btn_set_notification"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Set Notification" />
-
-        <!-- New Email Share Button -->
-        <ImageButton
-            android:id="@+id/btn_share_email"
+        <!-- Checkbox and Label -->
+        <LinearLayout
+            android:id="@+id/checkbox_label_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:contentDescription="Share Task via Email"
-            android:src="@drawable/ic_email" />
-    </LinearLayout>
-</LinearLayout>
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider">
+
+            <!-- Checkbox Label -->
+            <TextView
+                android:id="@+id/completion_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Mark as Completed"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Completion Checkbox -->
+            <CheckBox
+                android:id="@+id/task_completed_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/checkboxTint"
+                android:contentDescription="@string/mark_task_completed" />
+        </LinearLayout>
+
+        <!-- Task Description -->
+        <TextView
+            android:id="@+id/task_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkbox_label_layout"
+            tools:text="Finish the final project by the end of the week." />
+
+        <!-- Due Date and Priority -->
+        <LinearLayout
+            android:id="@+id/due_date_priority_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/task_description">
+
+            <!-- Due Date -->
+            <TextView
+                android:id="@+id/task_due_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:textColor="@color/darker_gray"
+                android:textSize="14sp"
+                tools:text="Due:" />
+
+            <TextView
+                android:id="@+id/task_due_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:text="2024-05-15" />
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <!-- Priority -->
+            <TextView
+                android:id="@+id/task_priority_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:textColor="@color/darker_gray"
+                android:textSize="14sp"
+                tools:text="Priority:" />
+
+            <TextView
+                android:id="@+id/task_priority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/highPriorityColor"
+                android:textSize="14sp"
+                tools:text="High" />
+        </LinearLayout>
+
+        <!-- Divider (Spacer) -->
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/dividerColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/due_date_priority_layout" />
+
+        <!-- Button Section -->
+        <LinearLayout
+            android:id="@+id/button_section"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider2">
+
+            <!-- Edit Button -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/btn_edit"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/edit_task"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_edit"
+                    android:tint="@color/iconTint" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/edit"
+                    android:textColor="@color/darker_gray"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Delete Button -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/btn_delete"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/delete_task"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_delete"
+                    android:tint="@color/iconTint" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete"
+                    android:textColor="@color/darker_gray"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Notify Button -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/btn_set_notification"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/set_notification"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_task_notification"
+                    android:tint="@color/iconTint" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/notify"
+                    android:textColor="@color/darker_gray"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Share Button -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/btn_share_email"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/share_via_email"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_email"
+                    android:tint="@color/iconTint" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/share"
+                    android:textColor="@color/darker_gray"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

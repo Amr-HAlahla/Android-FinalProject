@@ -1,6 +1,7 @@
+<!-- res/values/strings.xml -->
 <resources>
-    <string name="app_name">FinalProject</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Existing Strings -->
+    <string name="app_name">Todo Management Application</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="openDrawer">Open Navigation Drawer</string>
     <string name="closeDrawer">Close Navigation Drawer</string>
@@ -9,4 +10,102 @@
         <item>Medium</item>
         <item>High</item>
     </string-array>
+    <string name="task_title">Task Title</string>
+    <string name="task_description">Task Description</string>
+    <string name="due_date">Due Date</string>
+    <string name="due_time">Due Time</string>
+    <string name="priority">Priority</string>
+    <string name="high_priority">High Priority</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="notify">Notify</string>
+    <string name="share">Share</string>
+    <string name="mark_task_completed">Mark task as completed</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="delete_task">Delete Task</string>
+    <string name="set_notification">Set Notification</string>
+    <string name="share_via_email">Share via Email</string>
+
+    <!-- Labeled Strings with Placeholders -->
+    <string name="title_label">Title: %1$s</string>
+    <string name="description_label">Description: %1$s</string>
+    <string name="due_date_label">Due: %1$s</string>
+    <string name="priority_label">Priority: %1$s</string>
+
+    <!-- Additional Priority Strings -->
+    <string name="priority_low">Low</string>
+    <string name="priority_medium">Medium</string>
+    <string name="priority_high">High</string>
+
+    <!-- Share Email Body -->
+    <string name="share_email_body">
+        Task Title: %1$s\n
+        Description: %2$s\n
+        Due Date: %3$s %4$s\n
+        Priority: %5$s
+    </string>
+
+    <!-- Notification Dialog Strings -->
+    <string name="task_deadline">Task Deadline:</string>
+    <string name="remaining_time">Remaining Time:</string>
+    <string name="current_notification">Current Notification:</string>
+    <string name="set_notification_time">Set Notification Time</string>
+    <string name="enter_days">Please enter days</string>
+    <string name="enter_hours">Please enter hours</string>
+    <string name="enter_minutes">Please enter minutes</string>
+    <string name="invalid_notification_time">Invalid notification time!</string>
+    <string name="notification_time_future">Notification time must be in the future!</string>
+    <string name="notification_set_success">Notification set successfully!</string>
+    <string name="notification_set_failed">Failed to set notification!</string>
+
+    <!-- Edit Dialog Strings -->
+    <string name="enter_title">Please enter the task title</string>
+    <string name="enter_description">Please enter the task description</string>
+    <string name="enter_due_date">Please select a due date</string>
+    <string name="enter_due_time">Please select a due time</string>
+    <string name="select_due_date">Select Due Date</string>
+    <string name="task_updated_successfully">Task updated successfully!</string>
+    <string name="failed_to_update_task">Failed to update task.</string>
+
+    <!-- New Task Fragment Strings -->
+    <string name="select_due_time">Select Due Time</string>
+    <string name="fill_all_fields">Please fill in all the fields</string>
+    <string name="select_future_datetime">Please select a future date and time</string>
+    <string name="invalid_date_time">Invalid date or time selected</string>
+    <string name="task_saved_successfully">Task saved successfully!</string>
+    <string name="failed_to_save_task">Failed to save task.</string>
+    <string name="save_task">Save Task</string>
+
+    <!-- Logout Fragment Strings -->
+    <string name="logout">Logout</string>
+    <string name="logout_confirmation_title">Confirm Logout</string>
+    <string name="logout_confirmation_message">Are you sure you want to logout?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="logout_successful">Logged out successfully.</string>
+    <string name="incorrect_current_password">Incorrect current password.</string>
+    <string name="current_password_required">Current password is required.</string>
+    <string name="enter_valid_email">Please enter a valid email address.</string>
+    <string name="password_requirements">Password must be 6-12 characters and include at least one number, one lowercase letter, and one uppercase letter.</string>
+    <string name="profile_updated_successfully">Profile updated successfully!</string>
+    <string name="failed_to_update_profile">Failed to update profile.</string>
+    <string name="logout_cancelled">Logout cancelled.</string>
+
+    <string name="nav_today">Today</string>
+    <string name="nav_new_task">New Task</string>
+    <string name="nav_all_tasks">All Tasks</string>
+    <string name="nav_completed">Completed</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_logout">Logout</string>
+    <string name="nav_item_icon_description">Navigation Item Icon</string>
+
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="email_address">Email</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+
+
 </resources>

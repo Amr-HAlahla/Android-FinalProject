@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText etEmail, etFirstName, etLastName, etPassword, etConfirmPassword;
-    private Button btnRegister;
+    private Button btnRegister, btnBack;
     private DatabaseHelper db;
     private SharedPreferences preferences;
 
@@ -40,6 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password);
         etConfirmPassword = findViewById(R.id.et_confirm_password);
         btnRegister = findViewById(R.id.btn_register);
+        btnBack = findViewById(R.id.btn_back);
         CheckBox cbShowPassword = findViewById(R.id.cb_show_password);
 
         // Initialize database helper
@@ -63,6 +64,9 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        // Handle back button
+        btnBack.setOnClickListener(v -> finish());
+
         // Toggle password visibility
         cbShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -73,6 +77,7 @@ public class SignUpActivity extends AppCompatActivity {
             etPassword.setSelection(etPassword.getText().length());
         });
     }
+
 
     private boolean validateInput(String email, String firstName, String lastName, String password, String confirmPassword) {
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {

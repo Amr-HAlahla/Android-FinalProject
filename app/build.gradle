@@ -26,6 +26,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
 }
 
 dependencies {
@@ -48,6 +53,8 @@ dependencies {
 
     // Material DatePicker
     implementation 'androidx.fragment:fragment:1.4.1'
+
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
     // Testing dependencies
     testImplementation 'junit:junit:4.13.2'

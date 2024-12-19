@@ -7,4 +7,66 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="primary">#6200EE</color>
+    <color name="error">#B00020</color>
+    <color name="dark_gray">#757575</color>
+    <color name="light_gray">#E0E0E0</color>
+
+    <color name="cardBackground">#FFFFFF</color>
+    <color name="darker_gray">#757575</color>
+    <color name="dividerColor">#E0E0E0</color>
+    <color name="iconTint">#FF6200EE</color>
+    <color name="highPriorityColor">#D32F2F</color>
+    <color name="checkboxTint">#FF6200EE</color>
+
+    <!-- Background Colors -->
+    <color name="background_color">#66512DA8</color> <!-- White -->
+    <color name="button_primary_color">#6200EE</color> <!-- Primary Purple -->
+    <color name="button_secondary_color">#03DAC6</color> <!-- Secondary Teal -->
+
+    <!-- Text Colors -->
+    <color name="primary_text">#000000</color> <!-- Black -->
+    <color name="secondary_text">#666666</color> <!-- Dark Gray -->
+
+    <!-- Input Field Colors -->
+    <color name="input_background_color">#F5F5F5</color> <!-- Light Gray -->
+    <color name="input_border_color">#CCCCCC</color> <!-- Gray -->
+
+    <!-- Icon Colors -->
+    <color name="icon_color">#666666</color> <!-- Dark Gray -->
+
+    <!-- Switch Thumb and Track Colors -->
+    <color name="switch_thumb_color">#6200EE</color> <!-- Purple -->
+    <color name="switch_track_color">#BDBDBD</color> <!-- Light Gray -->
+    <color name="separator_color">#CCCCCC</color> <!-- Light Gray -->
+
+    <!-- Primary Colors -->
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC6</color>
+
+    <!-- Text Colors -->
+    <color name="nav_item_text_color">#000000</color> <!-- Black for nav items -->
+
+    <!-- Task Card Background -->
+    <color name="task_card_background">#CCFF90</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#666666</color>
+
+    <!-- Checkbox Tint -->
+    <color name="checkbox_tint">#4CAF50</color>
+
+    <!-- Priority Colors -->
+    <color name="priority_high">#F44336</color>
+    <color name="priority_medium">#FF9800</color>
+    <color name="priority_low">#4CAF50</color>
+
+    <!-- Icon Tint -->
+    <color name="icon_tint">#666666</color>
+    <color name="edit_task_background">#8BC34A</color>
+    <color name="new_task_background">#CCFF90</color>
+    <color name="home_background">#CC4A148C</color>
+
 </resources>

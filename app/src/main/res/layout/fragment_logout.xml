@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/logout_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".LogoutFragment">
 
-    <Button
+    <!-- Logout Button -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logout" />
+        android:backgroundTint="@color/error"
+        android:text="@string/logout"
+        android:textColor="@color/white"
+        app:cornerRadius="8dp" />
 </LinearLayout>

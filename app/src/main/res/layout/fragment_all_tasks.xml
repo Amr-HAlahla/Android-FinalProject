@@ -9,7 +9,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_all_tasks"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical" />
 
     <!-- TextView to show when there are no tasks -->
     <TextView
@@ -22,4 +24,26 @@
         android:textSize="18sp"
         android:visibility="gone" />
 
+    <!-- ProgressBar to indicate loading state -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+    <!-- Button to toggle between grouped and ungrouped view -->
+    <Button
+        android:id="@+id/button_toggle_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Toggle Grouped View" />
+
+    <!-- Button to fetch data -->
+    <Button
+        android:id="@+id/button_fetch_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fetch Data" />
 </LinearLayout>

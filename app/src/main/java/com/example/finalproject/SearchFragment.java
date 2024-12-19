@@ -1,38 +1,49 @@
 package com.example.finalproject;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements TaskAdapter.OnTaskClickListener {
 
     private RecyclerView recyclerView;
-    private AllTaskAdapter adapter;
+    private TaskAdapter adapter;
     private DatabaseHelper db;
     private EditText etSearchKeyword;
     private Button btnStartDate, btnEndDate, btnSearch;
     private String startDate, endDate;
     private List<Task> tasks;
+    private TextView emptyStateText;
 
     public SearchFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
@@ -43,112 +54,208 @@ public class SearchFragment extends Fragment {
         btnEndDate = rootView.findViewById(R.id.btn_end_date);
         btnSearch = rootView.findViewById(R.id.btn_search);
         recyclerView = rootView.findViewById(R.id.recycler_search_results);
+        emptyStateText = rootView.findViewById(R.id.text_empty_state);
 
-        db = new DatabaseHelper(getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        db = new DatabaseHelper(requireContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         // Set up listeners
-        btnStartDate.setOnClickListener(v -> showDatePicker(true));
-        btnEndDate.setOnClickListener(v -> showDatePicker(false));
-
-        // Set up search button click listener
+        btnStartDate.setOnClickListener(v -> showMaterialDatePicker(true));
+        btnEndDate.setOnClickListener(v -> showMaterialDatePicker(false));
         btnSearch.setOnClickListener(v -> searchTasks());
+
+        loadDarkModePreference();
 
         return rootView;
     }
 
-    private void showDatePicker(boolean isStartDate) {
+    /**
+     * Displays the MaterialDatePicker for selecting start or end date.
+     *
+     * @param isStartDate True if selecting start date, false for end date.
+     */
+    private void showMaterialDatePicker(boolean isStartDate) {
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText(getString(R.string.select_due_date))
+                .setSelection(calendar.getTimeInMillis())
+                .build();
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view, year1, month1, dayOfMonth) -> {
-            String date = (month1 + 1) + "/" + dayOfMonth + "/" + year1;
+        materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.setTimeInMillis(selection);
+
+            // Use the yyyy-MM-dd date format
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formattedDate = dateFormat.format(selectedDate.getTime());
 
             if (isStartDate) {
-                startDate = date;
-                btnStartDate.setText("Start Date: " + date);
+                startDate = formattedDate;
+                btnStartDate.setText("Start Date: " + formattedDate);
             } else {
-                endDate = date;
-                btnEndDate.setText("End Date: " + date);
+                endDate = formattedDate;
+                btnEndDate.setText("End Date: " + formattedDate);
             }
+        });
 
-        }, year, month, day);
-        datePickerDialog.show();
+        materialDatePicker.show(getChildFragmentManager(), materialDatePicker.toString());
     }
 
+    /**
+     * Searches tasks based on keyword and/or date range.
+     */
     private void searchTasks() {
         String keyword = etSearchKeyword.getText().toString().trim();
 
         // Ensure that at least one of the fields (keyword or date range) is provided
         if (keyword.isEmpty() && (startDate == null || endDate == null)) {
-            Toast.makeText(getContext(), "Please enter a search keyword or date range", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Please enter a search keyword or date range", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String loggedInUserEmail = getLoggedInUserEmail();
-        if (!loggedInUserEmail.isEmpty()) {
-            // Fetch tasks based on keyword and date range
-            tasks = db.searchTasks(loggedInUserEmail, keyword, startDate, endDate);
-            adapter = new AllTaskAdapter(tasks, new AllTaskAdapter.OnTaskClickListener() {
-                @Override
-                public void onTaskClick(Task task, int position) {
-                    // Handle task click (e.g., mark as completed or edit)
-                    editTask(task, position);
-                }
+        if (loggedInUserEmail.isEmpty()) {
+            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            emptyStateText.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+            return;
+        }
 
-                @Override
-                public void onEditClick(Task task, int position) {
-                    // Handle edit action
-                    editTask(task, position);
-                }
+        // Fetch tasks based on keyword and date range
+        tasks = db.searchTasks(loggedInUserEmail, keyword, startDate, endDate);
 
-                @Override
-                public void onDeleteClick(Task task, int position) {
-                    // Handle delete action
-                    deleteTask(task, position);
-                }
-
-                @Override
-                public void onTaskCompleted(Task task, int position) {
-                    // Handle task completion
-                    updateTaskCompletionStatus(task, position);
-                }
-            });
-            recyclerView.setAdapter(adapter);
+        if (tasks != null && !tasks.isEmpty()) {
+            if (adapter == null) {
+                // Initialize the adapter with Context, tasks, and listener
+                adapter = new TaskAdapter(requireContext(), tasks, this);
+                recyclerView.setAdapter(adapter);
+            } else {
+                // Update the adapter's data set
+                adapter.updateTasks(tasks);
+            }
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyStateText.setVisibility(View.GONE);
+        } else {
+            if (adapter != null) {
+                adapter.clearTasks();
+            }
+            recyclerView.setVisibility(View.GONE);
+            emptyStateText.setVisibility(View.VISIBLE);
+            Toast.makeText(requireContext(), "No tasks found matching the criteria.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void editTask(Task task, int position) {
+    @Override
+    public void onTaskClick(Task task, int position) {
+        // Show the task details in a Dialog
+        TaskDetailsDialogFragment dialog = new TaskDetailsDialogFragment(task);
+        dialog.show(getParentFragmentManager(), "TaskDetailsDialog");
+    }
+
+    @Override
+    public void onEditClick(Task task, int position) {
         // Open the EditTaskDialog to edit the task
         EditTaskDialog dialog = new EditTaskDialog(task, updatedTask -> {
             // After updating the task, refresh the list
             tasks.set(position, updatedTask);  // Update the task in the list
-            adapter.notifyItemChanged(position);  // Refresh the specific item in RecyclerView
+            adapter.notifyItemChanged(position);  // Notify RecyclerView about the change
+            Toast.makeText(requireContext(), "Task updated successfully!", Toast.LENGTH_SHORT).show();
         });
         dialog.show(getChildFragmentManager(), "EditTaskDialog");
     }
 
-    private void deleteTask(Task task, int position) {
+    @Override
+    public void onDeleteClick(Task task, int position) {
         // Delete task from the database
-        db.deleteTask(task.getId());
+        boolean deleted = db.deleteTask(task.getId());
 
-        // Remove the task from the list and update the RecyclerView
-        tasks.remove(position);  // Remove the task from the list
-        adapter.notifyItemRemoved(position);  // Notify RecyclerView about the removal
+        if (deleted) {
+            // Remove the task from the list and notify RecyclerView
+            tasks.remove(position);
+            adapter.notifyItemRemoved(position);
+            Toast.makeText(requireContext(), "Task deleted successfully!", Toast.LENGTH_SHORT).show();
+
+            // If no tasks left, show the "No Tasks" message
+            if (tasks.isEmpty()) {
+                recyclerView.setVisibility(View.GONE);
+                emptyStateText.setVisibility(View.VISIBLE);
+            }
+        } else {
+            Toast.makeText(requireContext(), "Failed to delete task", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void updateTaskCompletionStatus(Task task, int position) {
-        // Update task completion status in the database
-        boolean isUpdated = db.updateTask(task);
-        if (isUpdated) {
-            adapter.notifyDataSetChanged();  // Refresh the list after updating
+    @Override
+    public void onTaskCompleted(Task task, int position) {
+        // Toggle completion status
+        int newStatus = task.isCompleted() ? 1 : 0;
+        boolean updated = db.updateTaskCompletionStatus(task.getId(), newStatus);
+
+        if (updated) {
+            tasks.get(position).setCompletionStatus(newStatus);
+            // Safely notify the adapter to prevent IllegalStateException
+            recyclerView.post(() -> {
+                if (adapter != null) {
+                    adapter.notifyItemChanged(position);
+                }
+            });
+
+            String message = newStatus == 1 ? "Task marked as completed" : "Task marked as incomplete";
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(requireContext(), "Failed to update task status", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onSetNotification(Task task, int position) {
+        // Open the Notification Dialog for this task
+        SetNotificationDialog dialog = new SetNotificationDialog(task);
+        dialog.show(getChildFragmentManager(), "SetNotificationDialog");
+    }
+
+    @Override
+    public void onShareEmailClick(Task task) {
+        String taskTitle = task.getTitle();
+        String taskDescription = task.getDescription();
+        String taskDueDate = task.getDueDate();
+        String taskDueTime = task.getDueTime();
+        String taskPriority = task.getPriority();
+
+        // Use string resource with placeholders for email body
+        String emailBody = getString(R.string.share_email_body, taskTitle, taskDescription, taskDueDate, taskDueTime, taskPriority);
+
+        // Create an Intent to share the task details via email
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setType("message/rfc822");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{}); // Add recipient email addresses if needed
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Task Reminder: " + taskTitle);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, emailBody);
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send email..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getContext(), "No email client installed.", Toast.LENGTH_SHORT).show();
         }
     }
 
     private String getLoggedInUserEmail() {
-        SharedPreferences preferences = getContext().getSharedPreferences("TaskManagerPrefs", getContext().MODE_PRIVATE);
+        // Retrieve the logged-in user's email from SharedPreferences
+        SharedPreferences preferences = requireContext().getSharedPreferences("TaskManagerPrefs", Context.MODE_PRIVATE);
         return preferences.getString("logged_in_user", "");
+    }
+
+    /**
+     * Load the dark mode preference and apply the theme accordingly.
+     */
+    private void loadDarkModePreference() {
+        SharedPreferences preferences = getContext().getSharedPreferences("TaskManagerPrefs", getContext().MODE_PRIVATE);
+        boolean isDarkMode = preferences.getBoolean("dark_mode", false);
+
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }

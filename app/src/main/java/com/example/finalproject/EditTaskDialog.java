@@ -1,3 +1,4 @@
+// SetNotificationDialog.java
 package com.example.finalproject;
 
 import android.app.Dialog;
@@ -5,16 +6,19 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,8 +27,9 @@ import java.util.Locale;
 public class EditTaskDialog extends AppCompatDialogFragment {
 
     private TextInputEditText etTitle, etDescription, etDueDate, etDueTime;
+    private TextInputLayout tilTitle, tilDescription, tilDueDate, tilDueTime;
     private Spinner spPriority;
-    private Button btnSave, btnCancel;
+    private MaterialButton btnSave, btnCancel;
     private Task task;
     private DatabaseHelper db;
     private EditTaskListener listener;
@@ -49,9 +54,13 @@ public class EditTaskDialog extends AppCompatDialogFragment {
         dialog.setContentView(view);
 
         // Initialize views
+        tilTitle = view.findViewById(R.id.til_title);
         etTitle = view.findViewById(R.id.et_title);
+        tilDescription = view.findViewById(R.id.til_description);
         etDescription = view.findViewById(R.id.et_description);
+        tilDueDate = view.findViewById(R.id.til_due_date);
         etDueDate = view.findViewById(R.id.et_due_date);
+        tilDueTime = view.findViewById(R.id.til_due_time);
         etDueTime = view.findViewById(R.id.et_due_time);
         spPriority = view.findViewById(R.id.sp_priority);
         btnSave = view.findViewById(R.id.btn_save);
@@ -113,8 +122,37 @@ public class EditTaskDialog extends AppCompatDialogFragment {
         String priority = spPriority.getSelectedItem().toString();
 
         // Validate the inputs (ensure they are not empty)
-        if (title.isEmpty() || description.isEmpty() || dueDate.isEmpty() || dueTime.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show();
+        boolean valid = true;
+
+        if (title.isEmpty()) {
+            tilTitle.setError(getString(R.string.enter_title));
+            valid = false;
+        } else {
+            tilTitle.setError(null);
+        }
+
+        if (description.isEmpty()) {
+            tilDescription.setError(getString(R.string.enter_description));
+            valid = false;
+        } else {
+            tilDescription.setError(null);
+        }
+
+        if (dueDate.isEmpty()) {
+            tilDueDate.setError(getString(R.string.enter_due_date));
+            valid = false;
+        } else {
+            tilDueDate.setError(null);
+        }
+
+        if (dueTime.isEmpty()) {
+            tilDueTime.setError(getString(R.string.enter_due_time));
+            valid = false;
+        } else {
+            tilDueTime.setError(null);
+        }
+
+        if (!valid) {
             return;
         }
 
@@ -130,10 +168,10 @@ public class EditTaskDialog extends AppCompatDialogFragment {
         if (isUpdated) {
             // Notify listener and dismiss dialog
             listener.onTaskUpdated(task);
+            Toast.makeText(getContext(), getString(R.string.task_updated_successfully), Toast.LENGTH_SHORT).show();
             dismiss();
-            Toast.makeText(getContext(), "Task updated successfully!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getContext(), "Failed to update task", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.failed_to_update_task), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -142,7 +180,7 @@ public class EditTaskDialog extends AppCompatDialogFragment {
         long today = calendar.getTimeInMillis();
 
         MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select Due Date")
+                .setTitleText(getString(R.string.select_due_date))
                 .setSelection(today) // Default to today
                 .build();
 
@@ -165,8 +203,21 @@ public class EditTaskDialog extends AppCompatDialogFragment {
                 (view, hourOfDay, minuteOfHour) -> {
                     String time = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minuteOfHour);
                     etDueTime.setText(time);
-                }, hour, minute, true);
+                }, hour, minute, DateFormat.is24HourFormat(getContext()));
 
         timePickerDialog.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Set dialog width to 95% of screen width
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+            params.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.95);
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(params);
+        }
     }
 }

@@ -1,16 +1,20 @@
+// SetNotificationDialog.java
 package com.example.finalproject;
 
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,16 +42,19 @@ public class SetNotificationDialog extends AppCompatDialogFragment {
         TextView tvDeadline = view.findViewById(R.id.tv_deadline);
         TextView tvRemainingTime = view.findViewById(R.id.tv_remaining_time);
         TextView tvCurrentNotification = view.findViewById(R.id.tv_current_notification);
-        EditText etDays = view.findViewById(R.id.et_days);
-        EditText etHours = view.findViewById(R.id.et_hours);
-        EditText etMinutes = view.findViewById(R.id.et_minutes); // New input for minutes
-        Button btnSave = view.findViewById(R.id.btn_save_notification);
-        Button btnCancel = view.findViewById(R.id.btn_cancel_notification);
+        TextInputLayout tilDays = view.findViewById(R.id.til_days);
+        TextInputEditText etDays = view.findViewById(R.id.et_days);
+        TextInputLayout tilHours = view.findViewById(R.id.til_hours);
+        TextInputEditText etHours = view.findViewById(R.id.et_hours);
+        TextInputLayout tilMinutes = view.findViewById(R.id.til_minutes);
+        TextInputEditText etMinutes = view.findViewById(R.id.et_minutes);
+        MaterialButton btnSave = view.findViewById(R.id.btn_save_notification);
+        MaterialButton btnCancel = view.findViewById(R.id.btn_cancel_notification);
 
         db = new DatabaseHelper(getContext());
 
         // Display the task deadline
-        tvDeadline.setText("Task Deadline: " + task.getDueDate() + " " + task.getDueTime());
+        tvDeadline.setText(getString(R.string.task_deadline) + " " + task.getDueDate() + " " + task.getDueTime());
 
         // Calculate and display remaining time
         Calendar now = Calendar.getInstance();
@@ -55,12 +62,16 @@ public class SetNotificationDialog extends AppCompatDialogFragment {
         if (deadline != null) {
             long millisRemaining = deadline.getTimeInMillis() - now.getTimeInMillis();
 
-            long daysRemaining = millisRemaining / (1000 * 60 * 60 * 24);
-            long hoursRemaining = (millisRemaining / (1000 * 60 * 60)) % 24;
-            long minutesRemaining = (millisRemaining / (1000 * 60)) % 60; // Calculate remaining minutes
-            tvRemainingTime.setText("Remaining Time: " + daysRemaining + " days " + hoursRemaining + " hours " + minutesRemaining + " minutes");
+            if (millisRemaining > 0) {
+                long daysRemaining = millisRemaining / (1000 * 60 * 60 * 24);
+                long hoursRemaining = (millisRemaining / (1000 * 60 * 60)) % 24;
+                long minutesRemaining = (millisRemaining / (1000 * 60)) % 60;
+                tvRemainingTime.setText(getString(R.string.remaining_time) + " " + daysRemaining + " days " + hoursRemaining + " hours " + minutesRemaining + " minutes");
+            } else {
+                tvRemainingTime.setText(getString(R.string.remaining_time) + " Deadline has passed.");
+            }
         } else {
-            tvRemainingTime.setText("Invalid deadline");
+            tvRemainingTime.setText(getString(R.string.remaining_time) + " Invalid deadline");
         }
 
         // Check if reminder time has passed and display the appropriate message
@@ -69,14 +80,12 @@ public class SetNotificationDialog extends AppCompatDialogFragment {
             Calendar reminderCalendar = getReminderCalendar(reminderTime);
             if (reminderCalendar != null && reminderCalendar.before(now)) {
                 // If the reminder time has passed
-                tvCurrentNotification.setText("Current Notification: None");
+                tvCurrentNotification.setText(getString(R.string.current_notification) + " None");
             } else {
-                // If the reminder time is still valid
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-                tvCurrentNotification.setText("Current Notification: " + reminderTime);
+                tvCurrentNotification.setText(getString(R.string.current_notification) + " " + reminderTime);
             }
         } else {
-            tvCurrentNotification.setText("Current Notification: None");
+            tvCurrentNotification.setText(getString(R.string.current_notification) + " None");
         }
 
         // Save button logic
@@ -86,8 +95,30 @@ public class SetNotificationDialog extends AppCompatDialogFragment {
             String minutesStr = etMinutes.getText().toString().trim(); // Get minutes input
 
             // Validate input
-            if (TextUtils.isEmpty(daysStr) || TextUtils.isEmpty(hoursStr) || TextUtils.isEmpty(minutesStr)) {
-                Toast.makeText(getContext(), "Please enter days, hours, and minutes", Toast.LENGTH_SHORT).show();
+            boolean valid = true;
+
+            if (TextUtils.isEmpty(daysStr)) {
+                tilDays.setError(getString(R.string.enter_days));
+                valid = false;
+            } else {
+                tilDays.setError(null);
+            }
+
+            if (TextUtils.isEmpty(hoursStr)) {
+                tilHours.setError(getString(R.string.enter_hours));
+                valid = false;
+            } else {
+                tilHours.setError(null);
+            }
+
+            if (TextUtils.isEmpty(minutesStr)) {
+                tilMinutes.setError(getString(R.string.enter_minutes));
+                valid = false;
+            } else {
+                tilMinutes.setError(null);
+            }
+
+            if (!valid) {
                 return;
             }
 
@@ -96,7 +127,7 @@ public class SetNotificationDialog extends AppCompatDialogFragment {
             int minutes = Integer.parseInt(minutesStr);
 
             if (days < 0 || hours < 0 || minutes < 0 || (days == 0 && hours == 0 && minutes == 0)) {
-                Toast.makeText(getContext(), "Invalid notification time!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.invalid_notification_time), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -107,7 +138,7 @@ public class SetNotificationDialog extends AppCompatDialogFragment {
             notificationTime.add(Calendar.MINUTE, -minutes);
 
             if (notificationTime.before(now)) {
-                Toast.makeText(getContext(), "Notification time must be in the future!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.notification_time_future), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -122,10 +153,10 @@ public class SetNotificationDialog extends AppCompatDialogFragment {
                 // Schedule the notification reminder
                 NotificationScheduler.scheduleTaskReminder(getContext(), task);
 
-                Toast.makeText(getContext(), "Notification set successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.notification_set_success), Toast.LENGTH_SHORT).show();
                 dismiss();
             } else {
-                Toast.makeText(getContext(), "Failed to set notification!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.notification_set_failed), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -157,6 +188,19 @@ public class SetNotificationDialog extends AppCompatDialogFragment {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Set dialog width and height
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+            params.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.95);
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(params);
         }
     }
 }

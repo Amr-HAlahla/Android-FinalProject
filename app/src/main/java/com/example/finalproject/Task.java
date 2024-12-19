@@ -12,6 +12,10 @@ public class Task {
     private String reminderTime;
     private String userEmail;
 
+    // Empty Constructor
+    public Task() {
+    }
+
     // Constructor
     public Task(int id, String title, String description, String dueDate, String dueTime,
                 String priority, int completionStatus, String reminderTime, String userEmail) {
@@ -97,5 +101,28 @@ public class Task {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public boolean isCompleted() {
+        return completionStatus == 1;
+    }
+
+    public void setCompleted(boolean completed) {
+        completionStatus = completed ? 1 : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", dueDate='" + dueDate + '\'' +
+                ", dueTime='" + dueTime + '\'' +
+                ", priority='" + priority + '\'' +
+                ", completionStatus=" + completionStatus +
+                ", reminderTime='" + reminderTime + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                '}';
     }
 }

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
-    android:padding="16dp"
+    android:background="@color/background_color"
+    android:padding="24dp"
     tools:context=".SignUpActivity">
 
     <LinearLayout
@@ -13,28 +13,27 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <!-- Title -->
+        <!-- Welcoming Header -->
         <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_welcome"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:text="Create Your Account"
-            android:textColor="#000000"
-            android:textSize="24sp"
+            android:layout_marginBottom="10dp"
+            android:text="Join Us!"
+            android:textColor="@color/primary_text"
+            android:textSize="28sp"
             android:textStyle="bold" />
 
-        <!-- Subtitle -->
-        <TextView
-            android:id="@+id/tv_subtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:text="Fill in the details below to register"
-            android:textColor="#666666"
-            android:textSize="16sp" />
+        <!-- App Logo -->
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="App Logo"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_app_logo" />
 
         <!-- Email Input -->
         <EditText
@@ -42,71 +41,107 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_input"
+            android:drawableStart="@drawable/ic_email_login"
+            android:drawablePadding="10dp"
             android:hint="Email Address"
             android:inputType="textEmailAddress"
-            android:padding="12dp" />
+            android:padding="14dp" />
 
         <!-- First Name Input -->
         <EditText
             android:id="@+id/et_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_input"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="10dp"
             android:hint="First Name"
-            android:padding="12dp" />
+            android:inputType="textPersonName"
+            android:padding="14dp" />
 
         <!-- Last Name Input -->
         <EditText
             android:id="@+id/et_last_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_input"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="10dp"
             android:hint="Last Name"
-            android:padding="12dp" />
+            android:inputType="textPersonName"
+            android:padding="14dp" />
 
         <!-- Password Input -->
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_input"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="10dp"
             android:hint="Password"
             android:inputType="textPassword"
-            android:padding="12dp" />
+            android:padding="14dp" />
 
         <!-- Confirm Password Input -->
         <EditText
             android:id="@+id/et_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_input"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="10dp"
             android:hint="Confirm Password"
             android:inputType="textPassword"
-            android:padding="12dp" />
+            android:padding="14dp" />
 
         <!-- Checkbox to Show Password -->
         <CheckBox
             android:id="@+id/cb_show_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Show Password" />
+            android:layout_marginTop="12dp"
+            android:text="Show Password"
+            android:textColor="@color/secondary_text" />
 
-        <!-- Register Button -->
-        <Button
-            android:id="@+id/btn_register"
+        <!-- Button Layout with Register and Back buttons -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/button_primary"
-            android:padding="12dp"
-            android:text="Register"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:layout_marginTop="24dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!-- Back Button -->
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_secondary"
+                android:text="Back"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Register Button -->
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_primary"
+                android:text="Register"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

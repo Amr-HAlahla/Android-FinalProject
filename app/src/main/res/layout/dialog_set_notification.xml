@@ -1,116 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_margin="16dp"
+    app:cardBackgroundColor="@color/teal_700"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp">
 
-    <!-- Task Deadline -->
-    <TextView
-        android:id="@+id/tv_deadline"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Task Deadline: 12/12/2024 16:00"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content">
 
-    <!-- Remaining Time -->
-    <TextView
-        android:id="@+id/tv_remaining_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Remaining Time: X days Y hours"
-        android:textSize="14sp" />
-
-    <!-- Existing Notification Info -->
-    <TextView
-        android:id="@+id/tv_current_notification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Current Notification: 0 days 0 hours"
-        android:textSize="14sp" />
-
-    <!-- Set Notification Time -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <!-- Days -->
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp"
-            android:text="Days:" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <EditText
-            android:id="@+id/et_days"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="0"
-            android:inputType="number" />
+            <!-- Task Deadline -->
+            <TextView
+                android:id="@+id/tv_deadline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Task Deadline: 12/12/2024 16:00"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <!-- Hours -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="Hours:" />
+            <!-- Remaining Time -->
+            <TextView
+                android:id="@+id/tv_remaining_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Remaining Time: X days Y hours Z minutes"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/et_hours"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="0"
-            android:inputType="number" />
+            <!-- Current Notification -->
+            <TextView
+                android:id="@+id/tv_current_notification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Current Notification: None"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-        <!-- Minutes -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="Minutes:" />
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/light_gray" />
 
-        <EditText
-            android:id="@+id/et_minutes"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="0"
-            android:inputType="number" />
+            <!-- Notification Time Inputs -->
+            <TextView
+                android:id="@+id/tv_set_notification_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Set Notification Time"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <!-- Days -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_days"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:hint="Days"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/primary">
 
-    <!-- Buttons -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_days"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:text="0" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btn_save_notification"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Save" />
+                <!-- Hours -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_hours"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:hint="Hours"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/primary">
 
-        <Button
-            android:id="@+id/btn_cancel_notification"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cancel" />
-    </LinearLayout>
-</LinearLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_hours"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:text="0" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Minutes -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_minutes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:hint="Minutes"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/primary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_minutes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:text="0" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save_notification"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/primary"
+                    android:text="Save"
+                    android:textColor="@color/white"
+                    app:cornerRadius="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_cancel_notification"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/error"
+                    android:text="Cancel"
+                    android:textColor="@color/white"
+                    app:cornerRadius="8dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</com.google.android.material.card.MaterialCardView>

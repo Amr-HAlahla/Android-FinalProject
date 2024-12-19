@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -8,22 +9,26 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomePageActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener,
+        ConfirmationDialog.ConfirmationListener {
 
     private DrawerLayout drawer;
     private DatabaseHelper db;
     private SharedPreferences preferences;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +39,16 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         db = new DatabaseHelper(this);
         preferences = getSharedPreferences("TaskManagerPrefs", MODE_PRIVATE);
 
+        // Load dark mode preference and apply the theme
+        loadDarkModePreference();
+
         // Set up toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Set up drawer layout and toggle
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -56,6 +64,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new TodayFragment())
                     .commit();
+            // Optionally, set the first item as checked
             navigationView.setCheckedItem(R.id.nav_today);
         }
     }
@@ -64,7 +73,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment selectedFragment = null;
 
-        // Switch fragments based on navigation item
         switch (item.getItemId()) {
             case R.id.nav_today:
                 selectedFragment = new TodayFragment();
@@ -85,11 +93,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 selectedFragment = new ProfileFragment();
                 break;
             case R.id.nav_logout:
-                handleLogout();
-                return true;
+                showLogoutConfirmationDialog();
+                break;
         }
 
-        // Replace the current fragment with the selected one
         if (selectedFragment != null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, selectedFragment)
@@ -100,12 +107,38 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         return true;
     }
 
-    private void handleLogout() {
-        // Clear logged-in user and navigate back to sign-in page
-        getSharedPreferences("TaskManagerPrefs", MODE_PRIVATE).edit().remove("logged_in_user").apply();
+    private void showLogoutConfirmationDialog() {
+        ConfirmationDialog dialog = ConfirmationDialog.newInstance(
+                getString(R.string.logout_confirmation_title),
+                getString(R.string.logout_confirmation_message)
+        );
+        dialog.show(getSupportFragmentManager(), "ConfirmationDialog");
+    }
+
+    private void performLogout() {
+        // Clear logged-in user and other session data
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("logged_in_user"); // Remove specific keys if necessary
+        editor.apply();
+
+        // Redirect to MainPageActivity (assumed to be the login screen)
         Intent intent = new Intent(HomePageActivity.this, MainPageActivity.class);
+        // Clear the activity stack to prevent the user from returning by pressing the back button
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
+        Toast.makeText(this, getString(R.string.logout_successful), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onConfirm() {
+        performLogout();
+    }
+
+    @Override
+    public void onCancel() {
+        // Optionally, provide feedback that logout was canceled
+        Toast.makeText(this, getString(R.string.logout_cancelled), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -131,7 +164,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 firstName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_FIRST_NAME));
                 lastName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_LAST_NAME));
             }
-            cursor.close();
+            if (cursor != null) {
+                cursor.close();
+            }
 
             // Find the TextViews in the navigation header and set user info
             View headerView = navigationView.getHeaderView(0);
@@ -140,6 +175,17 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
             navHeaderName.setText(firstName + " " + lastName);
             navHeaderEmail.setText(userEmail);
+        }
+    }
+
+    // Load the dark mode preference and set the theme accordingly
+    private void loadDarkModePreference() {
+        boolean isDarkMode = preferences.getBoolean("dark_mode", false);
+
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
 }

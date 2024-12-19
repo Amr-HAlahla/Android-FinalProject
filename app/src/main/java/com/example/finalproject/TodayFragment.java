@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,6 +48,9 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
         // Set up the sort button to sort by priority
         btnSortByPriority.setOnClickListener(v -> sortTasksByPriority());
 
+        // Load the user's dark mode preference
+        loadDarkModePreference();
+
         return rootView;
     }
 
@@ -59,11 +63,20 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
 
         tasks = db.getTasksForTodayAndUser(todayDate, userEmail);
 
-        if (!tasks.isEmpty()) {
-            adapter = new TaskAdapter(tasks, this);
-            recyclerView.setAdapter(adapter);
+        if (tasks != null && !tasks.isEmpty()) {
+            if (adapter == null) {
+                // Initialize the adapter with Context, tasks, and listener
+                adapter = new TaskAdapter(requireContext(), tasks, this);
+                recyclerView.setAdapter(adapter);
+            } else {
+                // Update the adapter's data set
+                adapter.updateTasks(tasks);
+            }
             noTasksTextView.setVisibility(View.GONE);
         } else {
+            if (adapter != null) {
+                adapter.clearTasks();
+            }
             noTasksTextView.setVisibility(View.VISIBLE);
         }
     }
@@ -88,12 +101,12 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
                 }
 
                 private int getPriorityValue(String priority) {
-                    switch (priority) {
-                        case "High":
+                    switch (priority.toLowerCase()) {
+                        case "high":
                             return 3;
-                        case "Medium":
+                        case "medium":
                             return 2;
-                        case "Low":
+                        case "low":
                             return 1;
                         default:
                             return 0;
@@ -101,10 +114,11 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
                 }
             });
 
-            // Update the RecyclerView adapter with the new sorted list
-            adapter = new TaskAdapter(tasks, this); // Reinitialize the adapter
-            recyclerView.setAdapter(adapter); // Set the updated adapter
-            adapter.notifyDataSetChanged(); // Notify adapter about changes
+            // Update the adapter's data set
+            if (adapter != null) {
+                adapter.updateTasks(tasks);
+                adapter.notifyDataSetChanged();
+            }
 
             Toast.makeText(requireContext(), "Tasks sorted by priority", Toast.LENGTH_SHORT).show();
         } else {
@@ -112,23 +126,34 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
         }
     }
 
-
     @Override
     public void onTaskCompleted(Task task, int position) {
-        boolean updated = db.updateTaskCompletionStatus(task.getId(), 1); // Mark task as completed
+        // Toggle completion status
+        int newStatus = task.isCompleted() ? 1 : 0;
+        boolean updated = db.updateTaskCompletionStatus(task.getId(), newStatus);
 
         if (updated) {
-            tasks.get(position).setCompletionStatus(1);  // Update the task status locally
-            adapter.notifyItemChanged(position);  // Notify RecyclerView about the change
-            Toast.makeText(requireContext(), "Task marked as completed", Toast.LENGTH_SHORT).show();
+            tasks.get(position).setCompletionStatus(newStatus);
+            // Safely notify the adapter to prevent IllegalStateException
+            recyclerView.post(() -> {
+                if (adapter != null) {
+                    adapter.notifyItemChanged(position);
+                }
+            });
+
+            String message = newStatus == 1 ? "Task marked as completed" : "Task marked as incomplete";
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(requireContext(), "Failed to update task", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Failed to update task status", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onTaskClick(Task task, int position) {
-        // Implement task details view or other click behavior
+        // Show the task details in a Dialog
+        TaskDetailsDialogFragment dialog = new TaskDetailsDialogFragment(task);
+        dialog.show(getParentFragmentManager(), "TaskDetailsDialog");
+
     }
 
     @Override
@@ -185,4 +210,17 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
         }
     }
 
+    /**
+     * Load the dark mode preference and apply the theme accordingly.
+     */
+    private void loadDarkModePreference() {
+        SharedPreferences preferences = getContext().getSharedPreferences("TaskManagerPrefs", getContext().MODE_PRIVATE);
+        boolean isDarkMode = preferences.getBoolean("dark_mode", false);
+
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
 }

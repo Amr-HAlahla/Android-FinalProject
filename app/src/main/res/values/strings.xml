@@ -30,6 +30,7 @@
     <string name="title_label">Title: %1$s</string>
     <string name="description_label">Description: %1$s</string>
     <string name="due_date_label">Due: %1$s</string>
+    <string name="due_time_label">Due: %1$s</string>
     <string name="priority_label">Priority: %1$s</string>
 
     <!-- Additional Priority Strings -->

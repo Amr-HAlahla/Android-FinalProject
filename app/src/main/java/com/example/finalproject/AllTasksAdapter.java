@@ -61,11 +61,28 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             Task task = (Task) items.get(position);
             TaskViewHolder taskHolder = (TaskViewHolder) holder;
 
-            taskHolder.title.setText(task.getTitle());
-            taskHolder.description.setText(task.getDescription());
-            taskHolder.dueDate.setText(task.getDueDate());
-            taskHolder.priority.setText(task.getPriority());
+            // Set task details with labels using string resources
+            taskHolder.title.setText(context.getString(R.string.title_label, task.getTitle()));
+            taskHolder.description.setText(context.getString(R.string.description_label, task.getDescription()));
+            taskHolder.dueDate.setText(context.getString(R.string.due_date_label, task.getDueDate()));
+            taskHolder.dueTime.setText(context.getString(R.string.due_time_label, task.getDueTime()));
+            taskHolder.priority.setText(context.getString(R.string.priority_label, task.getPriority()));
             taskHolder.completedCheckbox.setChecked(task.isCompleted());
+
+            // Set priority text color based on level
+            switch (task.getPriority().toLowerCase()) {
+                case "high":
+                    taskHolder.priority.setTextColor(context.getResources().getColor(R.color.priority_high));
+                    break;
+                case "medium":
+                    taskHolder.priority.setTextColor(context.getResources().getColor(R.color.priority_medium));
+                    break;
+                case "low":
+                    taskHolder.priority.setTextColor(context.getResources().getColor(R.color.priority_low));
+                    break;
+                default:
+                    taskHolder.priority.setTextColor(context.getResources().getColor(R.color.darker_gray)); // Default color
+            }
 
             // Handle checkbox change
             taskHolder.completedCheckbox.setOnCheckedChangeListener(null);
@@ -133,7 +150,7 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     // ViewHolder for task items
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
-        TextView title, description, dueDate, priority;
+        TextView title, description, dueDate, priority, dueTime;
         CheckBox completedCheckbox;
         ImageButton btnEdit, btnDelete, btnSetNotification, btnShareEmail;
 
@@ -143,6 +160,7 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             description = itemView.findViewById(R.id.task_description);
             dueDate = itemView.findViewById(R.id.task_due_date);
             priority = itemView.findViewById(R.id.task_priority);
+            dueTime = itemView.findViewById(R.id.task_due_time);
             completedCheckbox = itemView.findViewById(R.id.task_completed_checkbox);
             btnEdit = itemView.findViewById(R.id.btn_edit);
             btnDelete = itemView.findViewById(R.id.btn_delete);

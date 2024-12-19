@@ -44,8 +44,8 @@
         <!-- Checkbox and Label -->
         <LinearLayout
             android:id="@+id/checkbox_label_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="196dp"
+            android:layout_height="31dp"
             android:layout_marginTop="12dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -76,8 +76,8 @@
         <!-- Task Description -->
         <TextView
             android:id="@+id/task_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="329dp"
+            android:layout_height="55dp"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="3"
@@ -88,11 +88,11 @@
             app:layout_constraintTop_toBottomOf="@id/checkbox_label_layout"
             tools:text="Finish the final project by the end of the week." />
 
-        <!-- Due Date and Priority -->
+        <!-- Due Date, Time, and Priority -->
         <LinearLayout
-            android:id="@+id/due_date_priority_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/due_date_time_priority_layout"
+            android:layout_width="323dp"
+            android:layout_height="33dp"
             android:layout_marginTop="12dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -107,15 +107,40 @@
                 android:drawablePadding="4dp"
                 android:textColor="@color/darker_gray"
                 android:textSize="14sp"
-                tools:text="Due:" />
+                tools:text="Due Date:" />
 
             <TextView
                 android:id="@+id/task_due_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="3dp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 tools:text="2024-05-15" />
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="8dp"
+                android:layout_height="wrap_content" />
+
+            <!-- Due Time -->
+            <TextView
+                android:id="@+id/task_due_time_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:textColor="@color/darker_gray"
+                android:textSize="14sp"
+                tools:text="Time:" />
+
+            <TextView
+                android:id="@+id/task_due_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="3dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:text="15:30" />
 
             <!-- Spacer -->
             <View
@@ -137,6 +162,7 @@
                 android:id="@+id/task_priority"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="3dp"
                 android:textColor="@color/highPriorityColor"
                 android:textSize="14sp"
                 tools:text="High" />
@@ -151,7 +177,7 @@
             android:background="@color/dividerColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/due_date_priority_layout" />
+            app:layout_constraintTop_toBottomOf="@id/due_date_time_priority_layout" />
 
         <!-- Button Section -->
         <LinearLayout

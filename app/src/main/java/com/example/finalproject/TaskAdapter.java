@@ -41,6 +41,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.title.setText(context.getString(R.string.title_label, task.getTitle()));
         holder.description.setText(context.getString(R.string.description_label, task.getDescription()));
         holder.dueDate.setText(context.getString(R.string.due_date_label, task.getDueDate()));
+        holder.dueTime.setText(context.getString(R.string.due_time_label, task.getDueTime()));
         holder.priority.setText(context.getString(R.string.priority_label, getPriorityString(task.getPriority())));
         holder.completedCheckbox.setChecked(task.isCompleted());
 
@@ -85,7 +86,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         holder.btnShareEmail.setOnClickListener(v -> onTaskClickListener.onShareEmailClick(task));
 
-        // Optional: Handle null or empty fields gracefully
         if (task.getDueDate() == null || task.getDueDate().isEmpty()) {
             holder.dueDate.setText(context.getString(R.string.due_date_label, "N/A"));
         }
@@ -95,12 +95,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             holder.priority.setTextColor(context.getResources().getColor(R.color.darker_gray)); // Neutral color
         }
 
+        if (task.getDueTime() == null || task.getDueTime().isEmpty()) {
+            holder.dueTime.setText(context.getString(R.string.due_time_label, "N/A"));
+        }
+
         // New: Add more validation for missing data
         if (task.getDescription() == null || task.getDescription().isEmpty()) {
             holder.description.setText(context.getString(R.string.description_label, "No description available"));
         }
 
-        // Optional: Update title or task data when task is clicked
         holder.itemView.setOnClickListener(v -> {
             int bindingAdapterPosition = holder.getBindingAdapterPosition();
             if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
@@ -166,7 +169,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
 
         // Task details with labels
-        TextView title, description, dueDate, priority;
+        TextView title, description, dueDate, priority, dueTime;
         CheckBox completedCheckbox;
 
         // Action Buttons
@@ -179,6 +182,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             title = itemView.findViewById(R.id.task_title);
             description = itemView.findViewById(R.id.task_description);
             dueDate = itemView.findViewById(R.id.task_due_date);
+            dueTime = itemView.findViewById(R.id.task_due_time);
             priority = itemView.findViewById(R.id.task_priority);
             completedCheckbox = itemView.findViewById(R.id.task_completed_checkbox);
 

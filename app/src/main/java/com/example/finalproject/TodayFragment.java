@@ -4,11 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +22,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -36,6 +43,7 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_today, container, false);
+        setHeaderDate(rootView); // Set the day and date in the header
 
         db = new DatabaseHelper(requireContext());
         recyclerView = rootView.findViewById(R.id.recycler_today);
@@ -79,6 +87,9 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
             }
             noTasksTextView.setVisibility(View.VISIBLE);
         }
+
+        // Delay checking if all tasks are completed to ensure proper initialization
+        new Handler(Looper.getMainLooper()).post(this::checkIfAllTasksCompleted);
     }
 
     private void sortTasksByPriority() {
@@ -134,7 +145,6 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
 
         if (updated) {
             tasks.get(position).setCompletionStatus(newStatus);
-            // Safely notify the adapter to prevent IllegalStateException
             recyclerView.post(() -> {
                 if (adapter != null) {
                     adapter.notifyItemChanged(position);
@@ -143,6 +153,9 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
 
             String message = newStatus == 1 ? "Task marked as completed" : "Task marked as incomplete";
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+
+            // Delay checking if all tasks are completed to ensure animation behavior is correct
+            new Handler(Looper.getMainLooper()).post(this::checkIfAllTasksCompleted);
         } else {
             Toast.makeText(requireContext(), "Failed to update task status", Toast.LENGTH_SHORT).show();
         }
@@ -209,6 +222,55 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
             Toast.makeText(getContext(), "No email client installed.", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void setHeaderDate(View rootView) {
+        TextView headerDate = rootView.findViewById(R.id.header_date);
+        Calendar calendar = Calendar.getInstance();
+        String dayOfWeek = DateFormat.format("EEEE", calendar).toString(); // e.g., "Monday"
+        String date = DateFormat.format("MMMM dd, yyyy", calendar).toString(); // e.g., "January 1, 2024"
+        headerDate.setText(String.format("%s, %s", dayOfWeek, date));
+    }
+
+    private void checkIfAllTasksCompleted() {
+        boolean allCompleted = tasks != null && !tasks.isEmpty() && tasks.stream().allMatch(Task::isCompleted);
+
+        if (allCompleted) {
+            showCompletionAnimation();
+        } else {
+            hideCompletionAnimation();
+        }
+    }
+
+
+    private void showCompletionAnimation() {
+        View rootView = getView();
+        if (rootView != null) {
+            ImageView animationView = rootView.findViewById(R.id.congratulationsGif);
+            if (animationView != null) {
+                // Load the GIF using Glide and ensure it is displayed only once
+                Glide.with(requireContext())
+                        .asGif()
+                        .load(R.drawable.congratulations_gif) // Replace with your GIF resource
+                        .into(animationView);
+
+                animationView.setVisibility(View.VISIBLE);
+
+                // Automatically hide the animation after a short delay (e.g., 3 seconds)
+                new Handler(Looper.getMainLooper()).postDelayed(this::hideCompletionAnimation, 3000);
+            }
+        }
+    }
+
+    private void hideCompletionAnimation() {
+        View rootView = getView();
+        if (rootView != null) {
+            ImageView animationView = rootView.findViewById(R.id.congratulationsGif);
+            if (animationView != null) {
+                animationView.setVisibility(View.GONE);
+            }
+        }
+    }
+
 
     /**
      * Load the dark mode preference and apply the theme accordingly.

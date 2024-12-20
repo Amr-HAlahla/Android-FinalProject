@@ -69,4 +69,6 @@
     <color name="new_task_background">#CCFF90</color>
     <color name="home_background">#CC4A148C</color>
 
+    <color name="primaryColor">#6200EE</color>
+
 </resources>

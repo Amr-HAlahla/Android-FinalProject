@@ -199,10 +199,8 @@ public class AllTasksFragment extends Fragment implements AllTasksAdapter.AllTas
                     taskIndex = tasks.indexOf(item); // Find the actual task index in the tasks list
                     break;
                 }
-                currentIndex++;
-            } else {
-                currentIndex++;
             }
+            currentIndex++;
         }
 
         // If the task index is valid, update the task

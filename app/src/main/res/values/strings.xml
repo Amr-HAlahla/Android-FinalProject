@@ -107,6 +107,7 @@
     <string name="update_profile">Update Profile</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="congratulations_gif">Congratulations! All tasks are completed!</string>
 
 
 </resources>

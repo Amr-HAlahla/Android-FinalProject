@@ -50,8 +50,8 @@ public class NewTaskFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment using View Binding
         View rootView = inflater.inflate(R.layout.fragment_new_task, container, false);
+        loadDarkModePreference();
 
         // Initialize views
         tilTitle = rootView.findViewById(R.id.til_title);
@@ -77,9 +77,6 @@ public class NewTaskFragment extends Fragment {
         btnSave.setOnClickListener(v -> saveTask());
 
         btnCancel.setOnClickListener(v -> clearFields());
-
-        // Load dark mode preference and apply the theme
-        loadDarkModePreference();
 
         return rootView;
     }
@@ -147,7 +144,6 @@ public class NewTaskFragment extends Fragment {
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                 (view, hourOfDay, minuteOfHour) -> {
-                    // Use a user-friendly time format
                     String time = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minuteOfHour);
                     etDueTime.setText(time);
                 }, hour, minute, DateFormat.is24HourFormat(getContext()));
@@ -233,12 +229,12 @@ public class NewTaskFragment extends Fragment {
         if (animationGif != null) {
             Glide.with(requireContext())
                     .asGif()
-                    .load(R.drawable.task_saved2) // Replace with your actual GIF resource
+                    .load(R.drawable.task_saved2)
                     .into(animationGif);
 
             animationGif.setVisibility(View.VISIBLE);
 
-            // Hide the animation after 2 seconds
+            // Hide the animation after 3 seconds
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 if (animationGif != null) {
                     animationGif.setVisibility(View.GONE);

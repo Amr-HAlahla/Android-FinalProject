@@ -1,12 +1,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/TaskCardStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:backgroundTint="@color/white"
-    app:cardCornerRadius="24dp"
-    app:cardElevation="16dp">
+    android:layout_margin="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,13 +14,9 @@
         <!-- Task Title -->
         <TextView
             android:id="@+id/task_title"
+            style="@style/TaskTitleStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/divider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,10 +27,10 @@
         <!-- Divider (Spacer) -->
         <View
             android:id="@+id/divider"
+            style="@style/TaskDividerStyle"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="12dp"
-            android:background="@color/dividerColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/task_title" />
@@ -44,8 +38,9 @@
         <!-- Checkbox and Label -->
         <LinearLayout
             android:id="@+id/checkbox_label_layout"
-            android:layout_width="196dp"
-            android:layout_height="31dp"
+            style="@style/ButtonStyle"
+            android:layout_width="204dp"
+            android:layout_height="55dp"
             android:layout_marginTop="12dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -56,24 +51,22 @@
             <!-- Checkbox Label -->
             <TextView
                 android:id="@+id/completion_label"
+                style="@style/TaskLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="Mark as Completed"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:text="@string/mark_as_completed" />
 
             <!-- Completion Checkbox -->
             <CheckBox
                 android:id="@+id/task_completed_checkbox"
+                style="@style/TaskCheckBoxStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/checkboxTint"
                 android:contentDescription="@string/mark_task_completed" />
         </LinearLayout>
 
-        <!-- GIF Animation for Task Completion -->
+        <!-- Task Completion GIF -->
         <ImageView
             android:id="@+id/task_completion_animation"
             android:layout_width="80dp"
@@ -86,48 +79,55 @@
             app:layout_constraintTop_toBottomOf="@id/checkbox_label_layout" />
 
         <!-- Task Description -->
-        <TextView
-            android:id="@+id/task_description"
-            android:layout_width="329dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+        <LinearLayout
+            android:id="@+id/task_description_layout"
+            style="@style/ButtonStyle"
+            android:layout_width="344dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/task_completion_animation"
-            tools:text="Finish the final project by the end of the week." />
+            app:layout_constraintTop_toBottomOf="@id/task_completion_animation">
+
+            <TextView
+                android:id="@+id/task_description"
+                style="@style/TaskDescriptionStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/task_completion_animation"
+                tools:text="Finish the final project by the end of the week." />
+        </LinearLayout>
 
         <!-- Due Date, Time, and Priority -->
         <LinearLayout
             android:id="@+id/due_date_time_priority_layout"
-            android:layout_width="323dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="12dp"
+            style="@style/ButtonStyle"
+            android:layout_width="344dp"
+            android:layout_height="46dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/task_description">
+            app:layout_constraintTop_toBottomOf="@id/task_description_layout">
 
             <!-- Due Date -->
+
             <TextView
                 android:id="@+id/task_due_date_label"
+                style="@style/TaskLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="4dp"
-                android:textColor="@color/darker_gray"
-                android:textSize="14sp"
+                android:drawablePadding="1dp"
+                android:textSize="13dp"
                 tools:text="Due Date:" />
 
             <TextView
                 android:id="@+id/task_due_date"
+                style="@style/TaskDescriptionStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="3dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
                 tools:text="2024-05-15" />
 
             <!-- Spacer -->
@@ -138,20 +138,19 @@
             <!-- Due Time -->
             <TextView
                 android:id="@+id/task_due_time_label"
+                style="@style/TaskLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="4dp"
-                android:textColor="@color/darker_gray"
-                android:textSize="14sp"
+                android:textSize="13dp"
                 tools:text="Time:" />
 
             <TextView
                 android:id="@+id/task_due_time"
+                style="@style/TaskDescriptionStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="3dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
                 tools:text="15:30" />
 
             <!-- Spacer -->
@@ -163,30 +162,29 @@
             <!-- Priority -->
             <TextView
                 android:id="@+id/task_priority_label"
+                style="@style/TaskLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="4dp"
-                android:textColor="@color/darker_gray"
-                android:textSize="14sp"
+                android:textSize="13dp"
                 tools:text="Priority:" />
 
             <TextView
                 android:id="@+id/task_priority"
+                style="@style/TaskDescriptionStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="3dp"
-                android:textColor="@color/highPriorityColor"
-                android:textSize="14sp"
                 tools:text="High" />
         </LinearLayout>
 
         <!-- Divider (Spacer) -->
         <View
             android:id="@+id/divider2"
+            style="@style/TaskDividerStyle"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="12dp"
-            android:background="@color/dividerColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/due_date_time_priority_layout" />
@@ -194,121 +192,86 @@
         <!-- Button Section -->
         <LinearLayout
             android:id="@+id/button_section"
-            android:layout_width="0dp"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:gravity="center"
             android:orientation="horizontal"
+            android:padding="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider2">
 
             <!-- Edit Button -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="8dp">
+            <LinearLayout style="@style/ButtonStyle">
 
                 <ImageButton
                     android:id="@+id/btn_edit"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/edit_task"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_edit"
-                    android:tint="@color/iconTint" />
-
-                <TextView
+                    style="@style/ButtonIconStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/edit"
-                    android:textColor="@color/darker_gray"
-                    android:textSize="14sp" />
+                    android:contentDescription="@string/edit_task"
+                    android:src="@drawable/ic_edit" />
+
+                <TextView
+                    style="@style/TaskLabelStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/edit" />
             </LinearLayout>
 
             <!-- Delete Button -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="8dp">
+            <LinearLayout style="@style/ButtonStyle">
 
                 <ImageButton
                     android:id="@+id/btn_delete"
+                    style="@style/ButtonIconStyle"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/delete_task"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_delete"
-                    android:tint="@color/iconTint" />
+                    android:src="@drawable/ic_delete" />
 
                 <TextView
+                    style="@style/TaskLabelStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/delete"
-                    android:textColor="@color/darker_gray"
-                    android:textSize="14sp" />
+                    android:text="@string/delete" />
             </LinearLayout>
 
             <!-- Notify Button -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="8dp">
+            <LinearLayout style="@style/ButtonStyle">
 
                 <ImageButton
                     android:id="@+id/btn_set_notification"
+                    style="@style/ButtonIconStyle"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/set_notification"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_task_notification"
-                    android:tint="@color/iconTint" />
+                    android:src="@drawable/ic_task_notification" />
 
                 <TextView
+                    style="@style/TaskLabelStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/notify"
-                    android:textColor="@color/darker_gray"
-                    android:textSize="14sp" />
+                    android:text="@string/notify" />
             </LinearLayout>
 
             <!-- Share Button -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="8dp">
+            <LinearLayout style="@style/ButtonStyle">
 
                 <ImageButton
                     android:id="@+id/btn_share_email"
+                    style="@style/ButtonIconStyle"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/share_via_email"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_email"
-                    android:tint="@color/iconTint" />
+                    android:src="@drawable/ic_email" />
 
                 <TextView
+                    style="@style/TaskLabelStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/share"
-                    android:textColor="@color/darker_gray"
-                    android:textSize="14sp" />
+                    android:text="@string/share" />
             </LinearLayout>
 
         </LinearLayout>

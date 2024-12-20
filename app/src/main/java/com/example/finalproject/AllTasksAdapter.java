@@ -23,7 +23,7 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int VIEW_TYPE_DATE_HEADER = 0;
     private static final int VIEW_TYPE_TASK = 1;
 
-    private List<Object> items; // Mixed list of tasks and date headers
+    private List<Object> items;
     private AllTasksListener listener;
     private Context context;
 
@@ -141,7 +141,7 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             animationView.setVisibility(View.VISIBLE);
             Glide.with(context)
                     .asGif()
-                    .load(R.drawable.task_completed_gif) // Replace with your GIF resource
+                    .load(R.drawable.task_completed_gif)
                     .into(animationView);
 
             // Hide the animation after a delay
@@ -162,8 +162,8 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void updateGroupedTasks(Map<String, List<Task>> groupedTasks) {
         List<Object> newItems = new ArrayList<>();
         for (Map.Entry<String, List<Task>> entry : groupedTasks.entrySet()) {
-            newItems.add(entry.getKey()); // Add date header
-            newItems.addAll(entry.getValue()); // Add tasks for the date
+            newItems.add(entry.getKey());
+            newItems.addAll(entry.getValue());
         }
         this.items = newItems;
         notifyDataSetChanged();
@@ -174,7 +174,7 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView title, description, dueDate, priority, dueTime;
         CheckBox completedCheckbox;
         ImageButton btnEdit, btnDelete, btnSetNotification, btnShareEmail;
-        ImageView completionAnimationView; // Add an ImageView for the animation
+        ImageView completionAnimationView;
 
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -188,7 +188,7 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             btnDelete = itemView.findViewById(R.id.btn_delete);
             btnSetNotification = itemView.findViewById(R.id.btn_set_notification);
             btnShareEmail = itemView.findViewById(R.id.btn_share_email);
-            completionAnimationView = itemView.findViewById(R.id.task_completion_animation); // New animation view
+            completionAnimationView = itemView.findViewById(R.id.task_completion_animation);
         }
     }
 

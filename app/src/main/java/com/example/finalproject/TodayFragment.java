@@ -250,7 +250,7 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
                 // Load the GIF using Glide and ensure it is displayed only once
                 Glide.with(requireContext())
                         .asGif()
-                        .load(R.drawable.congratulations_gif) // Replace with your GIF resource
+                        .load(R.drawable.congratulations_gif)
                         .into(animationView);
 
                 animationView.setVisibility(View.VISIBLE);
@@ -271,10 +271,6 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
         }
     }
 
-
-    /**
-     * Load the dark mode preference and apply the theme accordingly.
-     */
     private void loadDarkModePreference() {
         SharedPreferences preferences = getContext().getSharedPreferences("TaskManagerPrefs", getContext().MODE_PRIVATE);
         boolean isDarkMode = preferences.getBoolean("dark_mode", false);

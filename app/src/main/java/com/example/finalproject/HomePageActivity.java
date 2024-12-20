@@ -64,7 +64,6 @@ public class HomePageActivity extends AppCompatActivity implements
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new TodayFragment())
                     .commit();
-            // Optionally, set the first item as checked
             navigationView.setCheckedItem(R.id.nav_today);
         }
     }
@@ -121,7 +120,7 @@ public class HomePageActivity extends AppCompatActivity implements
         editor.remove("logged_in_user"); // Remove specific keys if necessary
         editor.apply();
 
-        // Redirect to MainPageActivity (assumed to be the login screen)
+        // Redirect to MainPageActivity
         Intent intent = new Intent(HomePageActivity.this, MainPageActivity.class);
         // Clear the activity stack to prevent the user from returning by pressing the back button
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -137,7 +136,6 @@ public class HomePageActivity extends AppCompatActivity implements
 
     @Override
     public void onCancel() {
-        // Optionally, provide feedback that logout was canceled
         Toast.makeText(this, getString(R.string.logout_cancelled), Toast.LENGTH_SHORT).show();
     }
 

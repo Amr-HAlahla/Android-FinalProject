@@ -24,10 +24,8 @@ public class TaskDetailsDialogFragment extends DialogFragment {
         // Inflate the custom dialog layout
         View rootView = inflater.inflate(R.layout.dialog_task_details, container, false);
 
-        // Set elevation to create a shadow effect (for devices with API >= 21)
-        rootView.setElevation(16f);  // Adjust the value as per your design needs
+        rootView.setElevation(16f);
 
-        // Find the views
         TextView taskTitle = rootView.findViewById(R.id.task_title);
         TextView taskDescription = rootView.findViewById(R.id.task_description);
         TextView taskDueDate = rootView.findViewById(R.id.task_due_date);
@@ -68,6 +66,11 @@ public class TaskDetailsDialogFragment extends DialogFragment {
         // Apply scale-in animation when the dialog is shown
         applyDialogAnimation(rootView);
 
+        getDialog().getWindow().setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT, // Width
+                ViewGroup.LayoutParams.WRAP_CONTENT  // Height
+        );
+
         return rootView;
     }
 
@@ -79,6 +82,6 @@ public class TaskDetailsDialogFragment extends DialogFragment {
 
     @Override
     public int getTheme() {
-        return R.style.CustomDialogTheme; // Apply custom theme with rounded corners
+        return R.style.CustomDialogTheme;
     }
 }

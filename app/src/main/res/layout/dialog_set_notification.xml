@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    app:cardBackgroundColor="@color/teal_700"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="8dp">
+    style="@style/NotificationCardStyle">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,33 +16,21 @@
             <!-- Task Deadline -->
             <TextView
                 android:id="@+id/tv_deadline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                style="@style/NotificationTextViewStyle"
                 android:text="Task Deadline: 12/12/2024 16:00"
-                android:textColor="@color/black"
-                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <!-- Remaining Time -->
             <TextView
                 android:id="@+id/tv_remaining_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="Remaining Time: X days Y hours Z minutes"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                style="@style/NotificationTextViewStyle"
+                android:text="Remaining Time: X days Y hours Z minutes" />
 
             <!-- Current Notification -->
             <TextView
                 android:id="@+id/tv_current_notification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="Current Notification: None"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                style="@style/NotificationTextViewStyle"
+                android:text="Current Notification: None" />
 
             <!-- Divider -->
             <View
@@ -59,12 +42,8 @@
             <!-- Notification Time Inputs -->
             <TextView
                 android:id="@+id/tv_set_notification_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                style="@style/NotificationTextViewStyle"
                 android:text="Set Notification Time"
-                android:textColor="@color/black"
-                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -75,18 +54,11 @@
                 <!-- Days -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_days"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:hint="Days"
-                    app:boxBackgroundMode="outline"
-                    app:boxStrokeColor="@color/primary">
+                    style="@style/NotificationTextInputLayoutStyle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_days"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/NotificationTextInputEditTextStyle"
                         android:inputType="number"
                         android:maxLength="3"
                         android:text="0" />
@@ -95,19 +67,11 @@
                 <!-- Hours -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_hours"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:hint="Hours"
-                    app:boxBackgroundMode="outline"
-                    app:boxStrokeColor="@color/primary">
+                    style="@style/NotificationTextInputLayoutStyle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_hours"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/NotificationTextInputEditTextStyle"
                         android:inputType="number"
                         android:maxLength="2"
                         android:text="0" />
@@ -116,18 +80,11 @@
                 <!-- Minutes -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_minutes"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:hint="Minutes"
-                    app:boxBackgroundMode="outline"
-                    app:boxStrokeColor="@color/primary">
+                    style="@style/NotificationTextInputLayoutStyle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/NotificationTextInputEditTextStyle"
                         android:inputType="number"
                         android:maxLength="2"
                         android:text="0" />
@@ -143,26 +100,18 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_save_notification"
-                    style="@style/Widget.MaterialComponents.Button"
+                    style="@style/DialogSaveButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/primary"
-                    android:text="Save"
-                    android:textColor="@color/white"
-                    app:cornerRadius="8dp" />
+                    android:layout_weight="1" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_cancel_notification"
-                    style="@style/Widget.MaterialComponents.Button"
+                    style="@style/DialogCancelButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/error"
-                    android:text="Cancel"
-                    android:textColor="@color/white"
-                    app:cornerRadius="8dp" />
+                    android:layout_weight="1" />
             </LinearLayout>
 
         </LinearLayout>

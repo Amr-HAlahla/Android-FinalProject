@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_color"
-    android:padding="24dp"
+    style="@style/LoginBackgroundStyle"
     tools:context=".MainPageActivity">
 
     <LinearLayout
@@ -16,20 +13,17 @@
         <!-- Welcoming Header -->
         <TextView
             android:id="@+id/tv_welcome"
+            style="@style/WelcomeTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Welcome Back!"
-            android:textColor="@color/primary_text"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:text="Welcome Back!" />
 
         <!-- App Logo -->
         <ImageView
             android:id="@+id/logo"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="12dp"
             android:background="@android:color/transparent"
             android:contentDescription="App Logo"
             android:scaleType="centerCrop"
@@ -38,67 +32,59 @@
         <!-- Email Input -->
         <EditText
             android:id="@+id/et_email"
+            style="@style/InputTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_input"
             android:drawableStart="@drawable/ic_email_login"
-            android:drawablePadding="10dp"
             android:hint="Email Address"
-            android:inputType="textEmailAddress"
-            android:padding="14dp" />
+            android:inputType="textEmailAddress" />
 
         <!-- Password Input -->
         <EditText
             android:id="@+id/et_password"
+            style="@style/InputTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/rounded_input"
             android:drawableStart="@drawable/ic_password"
-            android:drawablePadding="10dp"
             android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="14dp" />
+            android:inputType="textPassword" />
 
         <!-- Checkbox to Show Password -->
         <CheckBox
             android:id="@+id/cb_show_password"
+            style="@style/CheckboxTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Show Password"
-            android:textColor="@color/secondary_text" />
+            android:text="Show Password" />
 
         <!-- Remember Me Checkbox -->
         <CheckBox
             android:id="@+id/cb_remember_me"
+            style="@style/CheckboxTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Remember Me"
-            android:textColor="@color/secondary_text" />
+            android:text="Remember Me" />
 
         <!-- Login Button -->
         <Button
             android:id="@+id/btn_login"
+            style="@style/PrimaryButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/button_primary"
-            android:text="Login"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+            android:text="Login" />
 
         <!-- Sign-Up Button -->
         <Button
             android:id="@+id/btn_signup"
+            style="@style/SecondaryButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/button_secondary"
-            android:text="Sign Up"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+            android:text="Sign Up" />
 
         <!-- Dark Mode Switch -->
         <LinearLayout
@@ -110,12 +96,11 @@
 
             <TextView
                 android:id="@+id/tv_dark_mode"
+                style="@style/DarkModeTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Dark Mode"
-                android:textColor="@color/primary_text"
-                android:textSize="16sp" />
+                android:text="Dark Mode" />
 
             <Switch
                 android:id="@+id/switch_dark_mode"

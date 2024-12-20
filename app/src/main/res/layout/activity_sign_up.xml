@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_color"
-    android:padding="24dp"
+    style="@style/LoginBackgroundStyle"
     tools:context=".SignUpActivity">
 
     <LinearLayout
@@ -16,97 +13,72 @@
         <!-- Welcoming Header -->
         <TextView
             android:id="@+id/tv_welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            style="@style/SignUpHeaderTextStyle"
             android:text="Join Us!"
-            android:textColor="@color/primary_text"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <!-- App Logo -->
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginBottom="12dp"
-            android:background="@android:color/transparent"
+            style="@style/SignUpLogoStyle"
             android:contentDescription="App Logo"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_app_logo" />
+            android:src="@drawable/ic_app_logo"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
 
         <!-- Email Input -->
         <EditText
             android:id="@+id/et_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_input"
-            android:drawableStart="@drawable/ic_email_login"
-            android:drawablePadding="10dp"
+            style="@style/SignUpInputStyle"
             android:hint="Email Address"
             android:inputType="textEmailAddress"
-            android:padding="14dp" />
+            android:layout_width="320dp"
+            android:layout_height="48dp" />
 
         <!-- First Name Input -->
         <EditText
             android:id="@+id/et_first_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/rounded_input"
-            android:drawableStart="@drawable/ic_person"
-            android:drawablePadding="10dp"
+            style="@style/SignUpInputStyle"
             android:hint="First Name"
             android:inputType="textPersonName"
-            android:padding="14dp" />
+            android:layout_width="320dp"
+            android:layout_height="48dp" />
 
         <!-- Last Name Input -->
         <EditText
             android:id="@+id/et_last_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/rounded_input"
-            android:drawableStart="@drawable/ic_person"
-            android:drawablePadding="10dp"
+            style="@style/SignUpInputStyle"
             android:hint="Last Name"
             android:inputType="textPersonName"
-            android:padding="14dp" />
+            android:layout_width="320dp"
+            android:layout_height="48dp" />
 
         <!-- Password Input -->
         <EditText
             android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/rounded_input"
-            android:drawableStart="@drawable/ic_lock"
-            android:drawablePadding="10dp"
+            style="@style/SignUpInputStyle"
             android:hint="Password"
             android:inputType="textPassword"
-            android:padding="14dp" />
+            android:layout_width="320dp"
+            android:layout_height="48dp" />
 
         <!-- Confirm Password Input -->
         <EditText
             android:id="@+id/et_confirm_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/rounded_input"
-            android:drawableStart="@drawable/ic_lock"
-            android:drawablePadding="10dp"
+            style="@style/SignUpInputStyle"
             android:hint="Confirm Password"
             android:inputType="textPassword"
-            android:padding="14dp" />
+            android:layout_width="320dp"
+            android:layout_height="48dp" />
 
         <!-- Checkbox to Show Password -->
         <CheckBox
             android:id="@+id/cb_show_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            style="@style/SignUpCheckBoxStyle"
             android:text="Show Password"
-            android:textColor="@color/secondary_text" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <!-- Button Layout with Register and Back buttons -->
         <LinearLayout
@@ -120,27 +92,19 @@
             <!-- Back Button -->
             <Button
                 android:id="@+id/btn_back"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_secondary"
+                style="@style/SignUpBackButtonStyle"
                 android:text="Back"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_width="160dp"
+                android:layout_height="50dp" />
 
             <!-- Register Button -->
             <Button
                 android:id="@+id/btn_register"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_primary"
+                style="@style/SignUpRegisterButtonStyle"
                 android:text="Register"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="16dp" />
         </LinearLayout>
 
     </LinearLayout>

@@ -58,10 +58,9 @@ public class ConnectionAsyncTask extends AsyncTask<String, String, String> {
                 for (Task task : tasks) {
                     String userEmail = task.getUserEmail();
                     if (db.isEmailExists(userEmail)) {
-                        // Ensure the task data is formatted correctly before insertion
-                        String dueDate = task.getDueDate();  // Ensure this is in the "yyyy-MM-dd" format
-                        String dueTime = task.getDueTime();  // Ensure this is in the "hh:mm a" format
-                        String reminderTime = task.getReminderTime();  // Ensure it's in the expected format
+                        String dueDate = task.getDueDate();
+                        String dueTime = task.getDueTime();
+                        String reminderTime = task.getReminderTime();
 
                         // Insert the task into the database
                         db.insertTask(task.getTitle(), task.getDescription(), dueDate,
@@ -72,11 +71,9 @@ public class ConnectionAsyncTask extends AsyncTask<String, String, String> {
                     }
                 }
 
-                // Refresh the fragment with new data
                 fragment.loadTasks(); // Refresh tasks in fragment
 
             } catch (Exception e) {
-                // Handle any exceptions that might occur during parsing or database insertion
                 e.printStackTrace();
                 Toast.makeText(fragment.getContext(), "Error parsing or inserting data", Toast.LENGTH_SHORT).show();
             }

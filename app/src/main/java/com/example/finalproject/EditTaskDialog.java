@@ -46,7 +46,6 @@ public class EditTaskDialog extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Create the dialog
         Dialog dialog = super.onCreateDialog(savedInstanceState);
 
         // Inflate the layout for the dialog
@@ -110,7 +109,7 @@ public class EditTaskDialog extends AppCompatDialogFragment {
                 return i;
             }
         }
-        return 0; // Default to the first priority if not found
+        return 0;
     }
 
     private void saveUpdatedTask() {
@@ -211,7 +210,6 @@ public class EditTaskDialog extends AppCompatDialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        // Set dialog width to 95% of screen width
         Dialog dialog = getDialog();
         if (dialog != null) {
             WindowManager.LayoutParams params = dialog.getWindow().getAttributes();

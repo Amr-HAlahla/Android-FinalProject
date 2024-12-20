@@ -69,11 +69,6 @@ public class SearchFragment extends Fragment implements TaskAdapter.OnTaskClickL
         return rootView;
     }
 
-    /**
-     * Displays the MaterialDatePicker for selecting start or end date.
-     *
-     * @param isStartDate True if selecting start date, false for end date.
-     */
     private void showMaterialDatePicker(boolean isStartDate) {
         Calendar calendar = Calendar.getInstance();
         MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
@@ -101,9 +96,6 @@ public class SearchFragment extends Fragment implements TaskAdapter.OnTaskClickL
         materialDatePicker.show(getChildFragmentManager(), materialDatePicker.toString());
     }
 
-    /**
-     * Searches tasks based on keyword and/or date range.
-     */
     private void searchTasks() {
         String keyword = etSearchKeyword.getText().toString().trim();
 
@@ -175,7 +167,6 @@ public class SearchFragment extends Fragment implements TaskAdapter.OnTaskClickL
             adapter.notifyItemRemoved(position);
             Toast.makeText(requireContext(), "Task deleted successfully!", Toast.LENGTH_SHORT).show();
 
-            // If no tasks left, show the "No Tasks" message
             if (tasks.isEmpty()) {
                 recyclerView.setVisibility(View.GONE);
                 emptyStateText.setVisibility(View.VISIBLE);
@@ -193,7 +184,6 @@ public class SearchFragment extends Fragment implements TaskAdapter.OnTaskClickL
 
         if (updated) {
             tasks.get(position).setCompletionStatus(newStatus);
-            // Safely notify the adapter to prevent IllegalStateException
             recyclerView.post(() -> {
                 if (adapter != null) {
                     adapter.notifyItemChanged(position);
@@ -222,13 +212,12 @@ public class SearchFragment extends Fragment implements TaskAdapter.OnTaskClickL
         String taskDueTime = task.getDueTime();
         String taskPriority = task.getPriority();
 
-        // Use string resource with placeholders for email body
         String emailBody = getString(R.string.share_email_body, taskTitle, taskDescription, taskDueDate, taskDueTime, taskPriority);
 
         // Create an Intent to share the task details via email
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("message/rfc822");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{}); // Add recipient email addresses if needed
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{});
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Task Reminder: " + taskTitle);
         emailIntent.putExtra(Intent.EXTRA_TEXT, emailBody);
 
@@ -240,14 +229,10 @@ public class SearchFragment extends Fragment implements TaskAdapter.OnTaskClickL
     }
 
     private String getLoggedInUserEmail() {
-        // Retrieve the logged-in user's email from SharedPreferences
         SharedPreferences preferences = requireContext().getSharedPreferences("TaskManagerPrefs", Context.MODE_PRIVATE);
         return preferences.getString("logged_in_user", "");
     }
 
-    /**
-     * Load the dark mode preference and apply the theme accordingly.
-     */
     private void loadDarkModePreference() {
         SharedPreferences preferences = getContext().getSharedPreferences("TaskManagerPrefs", getContext().MODE_PRIVATE);
         boolean isDarkMode = preferences.getBoolean("dark_mode", false);

@@ -53,7 +53,6 @@ public class AllTasksFragment extends Fragment implements AllTasksAdapter.AllTas
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        // Check dark mode preference and apply it
         loadDarkModePreference();
 
         fetchButton.setOnClickListener(v -> {
@@ -81,7 +80,6 @@ public class AllTasksFragment extends Fragment implements AllTasksAdapter.AllTas
         SharedPreferences preferences = requireContext().getSharedPreferences("TaskManagerPrefs", Context.MODE_PRIVATE);
         boolean isDarkMode = preferences.getBoolean("dark_mode", false);
 
-        // Set the theme based on the saved preference
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
@@ -136,7 +134,7 @@ public class AllTasksFragment extends Fragment implements AllTasksAdapter.AllTas
         // Fetch grouped tasks from the database
         Map<String, List<Task>> groupedTasks = db.getTasksGroupedByDay(loggedInUserEmail);
 
-        // Sort tasks within each group by priority (if not already sorted in DB)
+        // Sort tasks within each group by priority
         for (Map.Entry<String, List<Task>> entry : groupedTasks.entrySet()) {
             entry.getValue().sort((task1, task2) -> {
                 int priority1 = getPriorityValue(task1.getPriority());
@@ -151,7 +149,7 @@ public class AllTasksFragment extends Fragment implements AllTasksAdapter.AllTas
             noTasksTextView.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         } else {
-            adapter.updateTasks(new ArrayList<>()); // Clear the list if no tasks are found
+            adapter.updateTasks(new ArrayList<>());
             noTasksTextView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         }
@@ -159,7 +157,7 @@ public class AllTasksFragment extends Fragment implements AllTasksAdapter.AllTas
 
     // Helper method to map priority to numeric values
     private int getPriorityValue(String priority) {
-        if (priority == null) return 3; // Default to 'low' if null
+        if (priority == null) return 2;
         switch (priority.toLowerCase()) {
             case "high":
                 return 1;
@@ -168,7 +166,7 @@ public class AllTasksFragment extends Fragment implements AllTasksAdapter.AllTas
             case "low":
                 return 3;
             default:
-                return 3; // Default to 'low' for unknown values
+                return 2;
         }
     }
 
@@ -189,14 +187,13 @@ public class AllTasksFragment extends Fragment implements AllTasksAdapter.AllTas
 
     @Override
     public void onTaskCompleted(Task task, int position) {
-        // Get the actual position of the task in the adapter's items
         int taskIndex = -1;
         int currentIndex = 0;
 
-        for (Object item : adapter.getItems()) { // Assuming getItems() is added to the adapter to expose the items list
+        for (Object item : adapter.getItems()) {
             if (item instanceof Task) {
                 if (currentIndex == position) {
-                    taskIndex = tasks.indexOf(item); // Find the actual task index in the tasks list
+                    taskIndex = tasks.indexOf(item);
                     break;
                 }
             }
@@ -276,7 +273,7 @@ public class AllTasksFragment extends Fragment implements AllTasksAdapter.AllTas
         // Create an Intent to share the task details via email
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("message/rfc822");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{}); // Add recipient email addresses if needed
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{});
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Task Reminder: " + taskTitle);
         emailIntent.putExtra(Intent.EXTRA_TEXT, "Task Title: " + taskTitle + "\n" +
                 "Description: " + taskDescription + "\n" +

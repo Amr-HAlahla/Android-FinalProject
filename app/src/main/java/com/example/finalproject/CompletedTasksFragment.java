@@ -33,7 +33,6 @@ public class CompletedTasksFragment extends Fragment implements TaskAdapter.OnTa
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_completed_tasks, container, false);
 
         // Initialize views and database
@@ -44,7 +43,6 @@ public class CompletedTasksFragment extends Fragment implements TaskAdapter.OnTa
         // Set up RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        // Check dark mode preference and apply it
         loadDarkModePreference();
 
         // Load tasks for the logged-in user
@@ -177,7 +175,7 @@ public class CompletedTasksFragment extends Fragment implements TaskAdapter.OnTa
         // Create an Intent to share the task details via email
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("message/rfc822");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{}); // Add recipient email addresses if needed
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{});
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Task Reminder: " + taskTitle);
         emailIntent.putExtra(Intent.EXTRA_TEXT, emailBody);
 

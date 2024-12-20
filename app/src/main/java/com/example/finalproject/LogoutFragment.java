@@ -65,7 +65,7 @@ public class LogoutFragment extends Fragment implements ConfirmationDialog.Confi
         // Clear user session or authentication data
         clearUserSession();
 
-        // Redirect to SignInActivity (or MainPageActivity as per your original code)
+        // Redirect to the login screen
         Intent intent = new Intent(getActivity(), MainPageActivity.class);
         // Clear the activity stack to prevent the user from returning by pressing the back button
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -91,7 +91,6 @@ public class LogoutFragment extends Fragment implements ConfirmationDialog.Confi
 
     @Override
     public void onCancel() {
-        // Optionally, provide feedback that logout was canceled
         Toast.makeText(getContext(), getString(R.string.logout_cancelled), Toast.LENGTH_SHORT).show();
     }
 

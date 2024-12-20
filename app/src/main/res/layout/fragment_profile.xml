@@ -2,12 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_profile"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="8dp">
+    style="@style/ProfileCardStyle">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,108 +17,75 @@
             <!-- First Name Field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_first_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/first_name"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/ProfileTextInputLayoutStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_first_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/ProfileTextInputEditTextStyle"
+                    android:hint="@string/first_name"
                     android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Last Name Field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_last_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/last_name"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/ProfileTextInputLayoutStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_last_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/ProfileTextInputEditTextStyle"
+                    android:hint="@string/last_name"
                     android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Current Password Field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_current_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/current_password"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/ProfileTextInputLayoutStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_current_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/ProfileTextInputEditTextStyle"
+                    android:hint="@string/current_password"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Email Address Field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/email_address"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/ProfileTextInputLayoutStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/ProfileTextInputEditTextStyle"
+                    android:hint="@string/email_address"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- New Password Field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_new_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/new_password"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/ProfileTextInputLayoutStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/ProfileTextInputEditTextStyle"
+                    android:hint="@string/new_password"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Save Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_save"
-                style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/primary"
-                android:text="@string/update_profile"
-                android:textColor="@color/white"
-                app:cornerRadius="8dp" />
+                style="@style/ProfileSaveButtonStyle"
+                android:text="@string/update_profile">
+
+            </com.google.android.material.button.MaterialButton>
 
             <!-- Success Animation GIF -->
             <ImageView
                 android:id="@+id/successAnimationGif"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/profile_update_success"
-                android:visibility="gone" />
+                style="@style/ProfileSuccessGifStyle" />
         </LinearLayout>
 
     </ScrollView>

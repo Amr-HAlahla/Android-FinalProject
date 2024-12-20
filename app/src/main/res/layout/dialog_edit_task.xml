@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    app:cardBackgroundColor="@color/edit_task_background"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="8dp">
+    style="@style/DialogCardStyle">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,15 +15,12 @@
             <!-- Title -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="Task Title"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/DialogTextInputLayoutStyle"
+                android:hint="Task Title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_title"
+                    style="@style/DialogTextInputEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -39,15 +30,12 @@
             <!-- Description -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="Task Description"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/DialogTextInputLayoutStyle"
+                android:hint="Task Description">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_description"
+                    style="@style/DialogTextInputEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
@@ -57,15 +45,12 @@
             <!-- Due Date -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_due_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="Due Date"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/DialogTextInputLayoutStyle"
+                android:hint="Due Date">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_due_date"
+                    style="@style/DialogTextInputEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
@@ -75,15 +60,12 @@
             <!-- Due Time -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_due_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="Due Time"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/DialogTextInputLayoutStyle"
+                android:hint="Due Time">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_due_time"
+                    style="@style/DialogTextInputEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
@@ -93,19 +75,12 @@
             <!-- Priority -->
             <TextView
                 android:id="@+id/tv_priority"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Priority"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                style="@style/DialogTextViewStyle"
+                android:text="Priority" />
 
             <Spinner
                 android:id="@+id/sp_priority"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:spinnerMode="dropdown" />
+                style="@style/DialogSpinnerStyle" />
 
             <!-- Buttons -->
             <LinearLayout
@@ -115,26 +90,20 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_save"
-                    style="@style/Widget.MaterialComponents.Button"
+                    style="@style/DialogSaveButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/primary"
-                    android:text="Save Task"
-                    android:textColor="@color/white"
-                    app:cornerRadius="8dp" />
+                    android:text="Save Task" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_cancel"
-                    style="@style/Widget.MaterialComponents.Button"
+                    style="@style/DialogCancelButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/error"
-                    android:text="Cancel"
-                    android:textColor="@color/white"
-                    app:cornerRadius="8dp" />
+                    android:text="Cancel" />
             </LinearLayout>
 
         </LinearLayout>

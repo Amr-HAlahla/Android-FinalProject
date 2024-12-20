@@ -1,0 +1,7 @@
+<!-- rounded_input_dark.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#424242" /> <!-- Dark gray background for inputs -->
+    <corners android:radius="8dp" /> <!-- Rounded corners -->
+    <stroke
+        android:color="#616161" /> <!-- Lighter gray stroke for the border -->
+</shape>

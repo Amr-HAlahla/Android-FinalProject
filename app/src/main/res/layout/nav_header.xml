@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/NavHeaderStyle"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="@drawable/nav_header_background"
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp">
@@ -10,29 +10,25 @@
     <!-- User Name -->
     <TextView
         android:id="@+id/nav_header_name"
+        style="@style/NavHeaderNameStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_bold"
-        android:text="User Name"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="8dp"
+        android:text="User Name" /> <!-- Apply the user name style -->
 
     <!-- User Email -->
     <TextView
         android:id="@+id/nav_header_email"
+        style="@style/NavHeaderEmailStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_regular"
-        android:text="user@example.com"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:text="User Email" /> <!-- Apply the email style -->
 
     <!-- Separator Line -->
     <View
+        style="@style/NavHeaderSeparatorStyle"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/separator_color" />
+        android:layout_marginTop="16dp" /> <!-- Apply the separator style -->
 
 </LinearLayout>

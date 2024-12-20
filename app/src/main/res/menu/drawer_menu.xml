@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Today -->
     <item
         android:id="@+id/nav_today"
-        android:icon="@drawable/today_tasks"
+        android:icon="@android:drawable/ic_menu_today"
         android:title="Today" />
 
+    <!-- New Task -->
     <item
         android:id="@+id/nav_new_task"
-        android:icon="@drawable/new_task"
+        android:icon="@android:drawable/ic_menu_add"
         android:title="New Task" />
 
+    <!-- All Tasks -->
     <item
         android:id="@+id/nav_all_tasks"
-        android:icon="@drawable/all_tasks"
+        android:icon="@android:drawable/ic_menu_agenda"
         android:title="All Tasks" />
 
+    <!-- Completed -->
     <item
         android:id="@+id/nav_completed"
-        android:icon="@drawable/completed"
+        android:icon="@drawable/ic_check"
         android:title="Completed" />
 
+    <!-- Search -->
     <item
         android:id="@+id/nav_search"
-        android:icon="@drawable/search"
+        android:icon="@android:drawable/ic_menu_search"
         android:title="Search" />
 
+    <!-- Profile -->
     <item
         android:id="@+id/nav_profile"
-        android:icon="@drawable/profile"
+        android:icon="@android:drawable/ic_menu_manage"
         android:title="Profile" />
 
+    <!-- Logout -->
     <item
         android:id="@+id/nav_logout"
-        android:icon="@drawable/logout"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
         android:title="Logout" />
 
 </menu>

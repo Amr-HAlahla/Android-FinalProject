@@ -1,36 +1,34 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme for night mode. -->
+    <!-- Dark Mode Styles    -->
     <style name="Theme.FinalProject" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Disable the default ActionBar for night mode -->
+        <!-- Disable the default ActionBar -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-        <!-- Primary brand color for night mode -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color for night mode -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color for night mode -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here for night mode -->
-    </style>
+        <!-- Primary brand color -->
+        <item name="colorPrimary">#BB86FC</item> <!-- purple_200 -->
+        <item name="colorPrimaryVariant">#3700B3</item> <!-- purple_700 -->
+        <item name="colorOnPrimary">#000000</item> <!-- black -->
 
-    <!-- TextAppearance for Navigation Menu Items -->
-    <style name="NavMenuItemText" parent="TextAppearance.AppCompat.Body1">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/nav_item_text_color</item>
-        <item name="android:fontFamily">@font/roboto_medium</item>
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">#03DAC6</item> <!-- teal_200 -->
+        <item name="colorSecondaryVariant">#03DAC6</item> <!-- teal_200 -->
+        <item name="colorOnSecondary">#000000</item> <!-- black -->
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">#3700B3</item> <!-- colorPrimaryVariant -->
     </style>
 
     <!-- Custom Dialog Theme -->
     <style name="CustomDialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:windowBackground">#FFFFFF</item>
         <item name="android:windowFrame">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <!-- Set minimum width and height of the dialog -->
+        <item name="android:windowMinWidthMajor">400dp</item>
+        <item name="android:windowMinWidthMinor">300dp</item>
+
     </style>
 
     <!-- Animation Style for Dialog -->
@@ -39,4 +37,550 @@
         <item name="android:windowExitAnimation">@anim/dialog_scale_out</item>
     </style>
 
+    <!-- Today's Tasks Fragment Styles -->
+
+    <style name="TodayFragmentHeaderText" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+    </style>
+
+    <style name="NoTasksText" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+    </style>
+
+    <style name="SortButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#000000</item> <!-- Black text -->
+        <item name="android:background">#BB86FC</item> <!-- Purple button background -->
+    </style>
+
+    <!-- Add New Task Fragment Styles -->
+    <style name="NewTaskCardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="cardBackgroundColor">#1E1E1E</item> <!-- Dark background -->
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">8dp</item>
+    </style>
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">#BB86FC</item> <!-- Purple stroke color -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="PriorityTextStyle" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="SaveButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">#BB86FC</item> <!-- Purple background -->
+        <item name="android:textColor">#000000</item> <!-- Black text -->
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <style name="CancelButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">#CF6679</item> <!-- Light Red background -->
+        <item name="android:textColor">#000000</item> <!-- Black text -->
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <!-- Login Screen Styles -->
+    <style name="LoginBackgroundStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#121212</item> <!-- Dark background -->
+        <item name="android:padding">24dp</item>
+    </style>
+
+    <style name="WelcomeTextStyle" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+    </style>
+
+    <style name="InputTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/rounded_input_dark</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:padding">14dp</item>
+    </style>
+
+    <style name="CheckboxTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#B0BEC5</item> <!-- Light Gray text -->
+    </style>
+
+    <style name="PrimaryButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/button_primary_dark</item>
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SecondaryButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/button_secondary_dark</item>
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DarkModeTextStyle" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+    </style>
+
+    <!-- SignUpHeaderTextStyle -->
+    <style name="SignUpHeaderTextStyle">
+        <item name="android:textColor">#E0E0E0</item> <!-- Light gray for primary text -->
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <!-- SignUpLogoStyle -->
+    <style name="SignUpLogoStyle">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <!-- SignUpInputStyle -->
+    <style name="SignUpInputStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/rounded_input_dark</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingEnd">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:layout_marginBottom">12dp</item>
+    </style>
+
+    <!-- SignUpCheckBoxStyle -->
+    <style name="SignUpCheckBoxStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:textColor">#BDBDBD</item> <!-- Lighter gray for secondary text -->
+    </style>
+
+    <!-- SignUpBackButtonStyle -->
+    <style name="SignUpBackButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/button_secondary_dark</item>
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingStart">16dp</item> <!-- Ensure padding for consistency -->
+        <item name="android:paddingEnd">16dp</item>
+    </style>
+
+    <!-- SignUpRegisterButtonStyle -->
+    <style name="SignUpRegisterButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/button_primary_dark</item>
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingStart">16dp</item> <!-- Ensure padding for consistency -->
+        <item name="android:paddingEnd">16dp</item>
+    </style>
+
+    <!-- Search Input Style -->
+    <style name="SearchInputStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/rounded_input_dark</item>
+        <item name="android:hint">Enter keyword</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:textColor">#E0E0E0</item> <!-- Light gray text -->
+    </style>
+
+    <!-- Search Button Style -->
+    <style name="SearchButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/button_primary_dark</item>
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Search Button Full Width Style -->
+    <style name="SearchFullButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:background">@drawable/button_primary_dark</item>
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Empty State Text Style -->
+    <style name="SearchEmptyStateStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textColor">#BDBDBD</item> <!-- Lighter gray text -->
+        <item name="android:textSize">16sp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <!-- RecyclerView Style -->
+    <style name="SearchRecyclerViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <!-- Material Card Style -->
+    <style name="ProfileCardStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="cardBackgroundColor">@color/black</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">8dp</item>
+    </style>
+
+    <!-- TextInputLayout Style -->
+    <style name="ProfileTextInputLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxStrokeColor">@color/primary</item>
+    </style>
+
+    <!-- TextInputEditText Style -->
+    <style name="ProfileTextInputEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#E0E0E0</item> <!-- Light gray text -->
+        <item name="android:backgroundTint">#424242</item> <!-- Dark background tint -->
+    </style>
+
+    <!-- Save Button Style -->
+    <style name="ProfileSaveButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/primary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <!-- Success Animation GIF Style -->
+    <style name="ProfileSuccessGifStyle">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+    <!--===========================================================-->
+    <!--======================== Edit Task Dialog =========================-->
+    <!-- MaterialCardView Style for Dark Mode -->
+    <style name="DialogCardStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="cardBackgroundColor">#121212</item> <!-- Dark background -->
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">8dp</item>
+    </style>
+
+    <!-- TextInputLayout Style for Dark Mode -->
+    <style name="DialogTextInputLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxStrokeColor">#BB86FC</item> <!-- Lighter stroke for dark mode -->
+    </style>
+
+    <!-- TextInputEditText Style for Dark Mode -->
+    <style name="DialogTextInputEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#E0E0E0</item> <!-- Light gray text -->
+        <item name="android:backgroundTint">#424242</item> <!-- Dark background tint -->
+    </style>
+
+    <!-- TextView Style for Dark Mode -->
+    <style name="DialogTextViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textColor">#FFFFFF</item> <!-- White text for dark mode -->
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Spinner Style for Dark Mode -->
+    <style name="DialogSpinnerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">24dp</item>
+        <item name="android:spinnerMode">dropdown</item>
+    </style>
+
+    <!-- Button Style for Dark Mode -->
+    <style name="DialogButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <!-- Save Button Style for Dark Mode -->
+    <style name="DialogSaveButtonStyle">
+        <item name="android:backgroundTint">#3700B3</item> <!-- Darker primary for dark mode -->
+        <item name="android:text">Save Task</item>
+    </style>
+
+    <!-- Cancel Button Style for Light Mode -->
+    <style name="DialogCancelButtonStyle">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:backgroundTint">@color/error</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:text">Cancel</item>
+    </style>
+
+    <!--===========================================================-->
+    <!-- MaterialCardView Style -->
+    <style name="NotificationCardStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="cardBackgroundColor">@color/black</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">8dp</item>
+    </style>
+
+    <!-- TextView Style -->
+    <style name="NotificationTextViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- TextInputLayout Style -->
+    <style name="NotificationTextInputLayoutStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxStrokeColor">@color/primary</item>
+    </style>
+
+    <!-- TextInputEditText Style -->
+    <style name="NotificationTextInputEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#BDBDBD</item> <!-- Light gray text -->
+        <item name="android:backgroundTint">#212121</item>
+    </style>
+
+    <!--===========================================================-->
+    <!-- Task Details Dialog -->
+    <!-- Dialog Background Style for Task Details (Dark Mode) -->
+    <style name="TaskDetailsDialogBackgroundStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">#121212</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:elevation">10dp</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
+    <!-- Task Details Title TextView Style (Dark Mode) -->
+    <style name="TaskDetailsDialogTitleTextViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <!-- Task Details TextView Style (for task info) (Dark Mode) -->
+    <style name="TaskDetailsDialogTextViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Task Details Button Style (Dark Mode) -->
+    <style name="TaskDetailsDialogButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:backgroundTint">@android:color/holo_red_dark</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!--===========================================================-->
+    <!-- Home Page -->
+    <!-- DrawerLayout -->
+    <style name="DrawerLayoutStyle">
+        <item name="android:backgroundTint">#121212</item> <!-- Dark background -->
+    </style>
+
+    <!-- Toolbar Style -->
+    <style name="ToolbarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">#222B5A</item>
+        <item name="android:titleTextColor">#B6B2B2</item>
+    </style>
+
+    <!-- NavigationView Style -->
+    <style name="NavigationViewStyle">
+        <item name="android:layout_width">280dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:background">#00695C</item> <!-- Dark teal background for the drawer -->
+        <item name="itemIconPadding">16dp</item>
+        <item name="itemIconSize">32dp</item>
+        <item name="itemTextAppearance">@style/NavMenuItemText</item>
+    </style>
+
+    <!-- Drawer Menu Item Text Style -->
+    <style name="NavMenuItemText">
+        <item name="android:textColor">#FFFFFF
+        </item> <!-- White text for menu items in dark mode -->
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <!-- Header Container Style -->
+    <style name="NavHeaderStyle">
+        <item name="android:background">#121212</item> <!-- Dark background for dark mode -->
+        <item name="android:padding">16dp</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+
+    <!-- User Name Style -->
+    <style name="NavHeaderNameStyle">
+        <item name="android:textColor">#FFFFFF</item> <!-- White text for dark mode -->
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <!-- User Email Style -->
+    <style name="NavHeaderEmailStyle">
+        <item name="android:textColor">#FFFFFF</item> <!-- White text for dark mode -->
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <!-- Separator Style -->
+    <style name="NavHeaderSeparatorStyle">
+        <item name="android:background">#444444</item> <!-- Dark gray color for separator -->
+    </style>
+
+    <!--===========================================================-->
+    <!-- Task Item Styles -->
+    <!-- CardView Style -->
+    <style name="TaskCardStyle">
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:backgroundTint">#121212</item> <!-- Dark background -->
+        <item name="cardCornerRadius">24dp</item>
+        <item name="cardElevation">16dp</item>
+    </style>
+
+    <!-- TextView Styles -->
+    <style name="TaskTitleStyle">
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TaskDescriptionStyle">
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxLines">5</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TaskLabelStyle">
+        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Divider Style -->
+    <style name="TaskDividerStyle">
+        <item name="android:background">#333333</item> <!-- Dark gray divider -->
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <!-- Button Section Styles -->
+    <style name="ButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="ButtonIconStyle">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:tint">#BB86FC</item> <!-- Light purple for dark mode -->
+    </style>
+
+    <!-- CheckBox Style -->
+    <style name="TaskCheckBoxStyle">
+        <item name="android:buttonTint">#BB86FC</item> <!-- Light purple for dark mode -->
+    </style>
+
+    <style name="HomePageScreen">
+        <item name="android:background">#8741DD</item> <!-- White background -->
+    </style>
+
 </resources>
+

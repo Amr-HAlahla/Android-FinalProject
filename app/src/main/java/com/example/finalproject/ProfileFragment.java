@@ -157,11 +157,11 @@ public class ProfileFragment extends Fragment {
         // Load GIF using Glide
         Glide.with(this)
                 .asGif()
-                .load(R.drawable.success_animation) // Replace with your GIF resource
+                .load(R.drawable.success_animation)
                 .into(binding.successAnimationGif);
 
-        // Hide the animation after 2 seconds
-        new Handler().postDelayed(() -> binding.successAnimationGif.setVisibility(View.GONE), 1000);
+        // Hide the animation after 1.5 seconds
+        new Handler().postDelayed(() -> binding.successAnimationGif.setVisibility(View.GONE), 1500);
     }
 
     private String getLoggedInUserEmail() {

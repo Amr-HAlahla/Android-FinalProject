@@ -149,6 +149,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return taskList;
     }
 
+    // Search tasks based on keyword, start date, and end date
     public List<Task> searchTasks(String email, String keyword, String startDate, String endDate) {
         List<Task> taskList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -241,7 +242,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-
+    // Load all tasks for a user
     public List<Task> getAllTasksForUser(String email) {
         List<Task> taskList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -270,7 +271,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return taskList;
     }
 
-
+    // Update a task
     public boolean updateTask(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -307,7 +308,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsAffected > 0;
     }
 
-
+    // Retrieve Completed Tasks
     public List<Task> getCompletedTasksForUser(String email) {
         List<Task> taskList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();

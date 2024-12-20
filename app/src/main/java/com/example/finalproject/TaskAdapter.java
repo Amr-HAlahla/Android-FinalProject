@@ -40,7 +40,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = tasks.get(position);
 
-        // Set task details with labels using string resources
         holder.title.setText(context.getString(R.string.title_label, task.getTitle()));
         holder.description.setText(context.getString(R.string.description_label, task.getDescription()));
         holder.dueDate.setText(context.getString(R.string.due_date_label, task.getDueDate()));
@@ -53,7 +52,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         int priorityColor = getPriorityColor(priorityLevel);
         holder.priority.setTextColor(priorityColor);
 
-        // Prevent unwanted callbacks during recycling (checkbox state handling)
         holder.completedCheckbox.setOnCheckedChangeListener(null);
         holder.completedCheckbox.setChecked(task.isCompleted());
         holder.completedCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -109,7 +107,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             holder.dueTime.setText(context.getString(R.string.due_time_label, "N/A"));
         }
 
-        // New: Add more validation for missing data
         if (task.getDescription() == null || task.getDescription().isEmpty()) {
             holder.description.setText(context.getString(R.string.description_label, "No description available"));
         }
@@ -127,7 +124,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     private void playCompletionAnimation(ImageView animationView) {
         Glide.with(context)
                 .asGif()
-                .load(R.drawable.task_completed_gif) // Replace with your actual GIF resource
+                .load(R.drawable.task_completed_gif)
                 .into(animationView);
 
         animationView.setVisibility(View.VISIBLE);
@@ -194,7 +191,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         // Task details
         TextView title, description, dueDate, priority, dueTime;
         CheckBox completedCheckbox;
-        ImageView taskCompletionAnimation; // Added for animation
+        ImageView taskCompletionAnimation;
 
         // Action Buttons
         ImageButton btnEdit, btnDelete, btnSetNotification, btnShareEmail;

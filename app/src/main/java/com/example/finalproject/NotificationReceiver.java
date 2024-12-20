@@ -22,7 +22,6 @@ public class NotificationReceiver extends BroadcastReceiver {
         // Create a notification manager
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // For devices running Android O and above, create a notification channel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Task Reminders", NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(channel);

@@ -33,13 +33,10 @@ public class ConfirmationDialog extends DialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        // Ensure that the host implements the ConfirmationListener interface
         try {
-            // Parent fragment (if used)
             if (getParentFragment() instanceof ConfirmationListener) {
                 listener = (ConfirmationListener) getParentFragment();
             } else {
-                // Activity as fallback
                 listener = (ConfirmationListener) context;
             }
         } catch (ClassCastException e) {

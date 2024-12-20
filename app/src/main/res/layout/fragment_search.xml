@@ -8,10 +8,7 @@
 
     <EditText
         android:id="@+id/et_search_keyword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter keyword"
-        android:inputType="text" />
+        style="@style/SearchInputStyle" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,43 +18,28 @@
 
         <Button
             android:id="@+id/btn_start_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/SearchButtonStyle"
             android:text="Start Date" />
 
         <Button
             android:id="@+id/btn_end_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/SearchButtonStyle"
             android:layout_marginStart="8dp"
-            android:layout_weight="1"
             android:text="End Date" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        style="@style/SearchFullButtonStyle"
         android:text="Search" />
 
     <TextView
         android:id="@+id/text_empty_state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="16dp"
-        android:text="No tasks found."
-        android:textColor="@color/darker_gray"
-        android:textSize="16sp"
-        android:visibility="gone" />
+        style="@style/SearchEmptyStateStyle"
+        android:text="No tasks found." />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_search_results"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="8dp"
+        style="@style/SearchRecyclerViewStyle"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </LinearLayout>

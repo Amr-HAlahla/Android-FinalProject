@@ -160,7 +160,6 @@ public class SetNotificationDialog extends AppCompatDialogFragment {
             }
         });
 
-        // Cancel button logic
         btnCancel.setOnClickListener(v -> dismiss());
 
         return dialog;

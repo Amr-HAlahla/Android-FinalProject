@@ -2,12 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_new_task"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    app:cardBackgroundColor="@color/new_task_background"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="8dp">
+    style="@style/NewTaskCardStyle">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,12 +17,8 @@
             <!-- Title -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/task_title"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/TextInputLayoutStyle"
+                android:hint="@string/task_title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_title"
@@ -40,12 +31,8 @@
             <!-- Description -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/task_description"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/TextInputLayoutStyle"
+                android:hint="@string/task_description">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_description"
@@ -58,12 +45,8 @@
             <!-- Due Date -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_due_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/due_date"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/TextInputLayoutStyle"
+                android:hint="@string/due_date">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_due_date"
@@ -76,12 +59,8 @@
             <!-- Due Time -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_due_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/due_time"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/primary">
+                style="@style/TextInputLayoutStyle"
+                android:hint="@string/due_time">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_due_time"
@@ -94,17 +73,16 @@
             <!-- Priority -->
             <TextView
                 android:id="@+id/tv_priority_label"
+                style="@style/PriorityTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@string/priority"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:text="@string/priority" />
 
             <Spinner
                 android:id="@+id/sp_priority"
-                android:layout_width="345dp"
-                android:layout_height="38dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:spinnerMode="dropdown" />
 
@@ -116,26 +94,20 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_save"
-                    style="@style/Widget.MaterialComponents.Button"
+                    style="@style/SaveButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/primary"
-                    android:text="@string/save_task"
-                    android:textColor="@color/white"
-                    app:cornerRadius="8dp" />
+                    android:text="@string/save_task" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_cancel"
-                    style="@style/Widget.MaterialComponents.Button"
+                    style="@style/CancelButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/error"
-                    android:text="@string/cancel"
-                    android:textColor="@color/white"
-                    app:cornerRadius="8dp" />
+                    android:text="@string/cancel" />
             </LinearLayout>
 
             <!-- Animation GIF -->

@@ -8,13 +8,10 @@
     <!-- Header: Day and Date -->
     <TextView
         android:id="@+id/header_date"
+        style="@style/TodayFragmentHeaderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:text="Today, January 1, 2024"
-        android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,12 +30,10 @@
     <!-- No Tasks TextView -->
     <TextView
         android:id="@+id/text_no_tasks"
+        style="@style/NoTasksText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="No tasks for today"
-        android:textSize="18sp"
-        android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,9 +52,8 @@
     <!-- Sort Button -->
     <Button
         android:id="@+id/button_sort"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sort by Priority"
+        style="@style/SortButtonStyle"
+        android:text="Sort By Priority"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

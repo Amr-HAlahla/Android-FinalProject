@@ -22,7 +22,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Load theme based on saved preferences
         preferences = getSharedPreferences("TaskManagerPrefs", MODE_PRIVATE);
         if (preferences.getBoolean("dark_mode", false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);

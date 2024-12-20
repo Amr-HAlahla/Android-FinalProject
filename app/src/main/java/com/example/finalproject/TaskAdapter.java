@@ -6,10 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -59,6 +62,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 Task updatedTask = tasks.get(bindingAdapterPosition);
                 updatedTask.setCompleted(isChecked);
                 onTaskClickListener.onTaskCompleted(updatedTask, bindingAdapterPosition);
+
+                // Play animation if the task is marked as completed
+                if (isChecked) {
+                    playCompletionAnimation(holder.taskCompletionAnimation);
+                } else {
+                    holder.taskCompletionAnimation.setVisibility(View.GONE); // Hide animation if unchecked
+                }
             }
         });
 
@@ -111,6 +121,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 onTaskClickListener.onTaskClick(clickedTask, bindingAdapterPosition);
             }
         });
+    }
+
+    // Helper method to play GIF animation
+    private void playCompletionAnimation(ImageView animationView) {
+        Glide.with(context)
+                .asGif()
+                .load(R.drawable.task_completed_gif) // Replace with your actual GIF resource
+                .into(animationView);
+
+        animationView.setVisibility(View.VISIBLE);
+
+        // Hide animation after 3 seconds
+        animationView.postDelayed(() -> animationView.setVisibility(View.GONE), 3000);
     }
 
     // Helper method to get priority string
@@ -168,9 +191,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     // ViewHolder Class
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
 
-        // Task details with labels
+        // Task details
         TextView title, description, dueDate, priority, dueTime;
         CheckBox completedCheckbox;
+        ImageView taskCompletionAnimation; // Added for animation
 
         // Action Buttons
         ImageButton btnEdit, btnDelete, btnSetNotification, btnShareEmail;
@@ -178,15 +202,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            // Update view IDs to match new layout
+            // Initialize views
             title = itemView.findViewById(R.id.task_title);
             description = itemView.findViewById(R.id.task_description);
             dueDate = itemView.findViewById(R.id.task_due_date);
             dueTime = itemView.findViewById(R.id.task_due_time);
             priority = itemView.findViewById(R.id.task_priority);
             completedCheckbox = itemView.findViewById(R.id.task_completed_checkbox);
+            taskCompletionAnimation = itemView.findViewById(R.id.task_completion_animation);
 
-            // Update button IDs
+            // Initialize buttons
             btnEdit = itemView.findViewById(R.id.btn_edit);
             btnDelete = itemView.findViewById(R.id.btn_delete);
             btnSetNotification = itemView.findViewById(R.id.btn_set_notification);

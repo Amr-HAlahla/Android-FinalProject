@@ -108,6 +108,9 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="congratulations_gif">Congratulations! All tasks are completed!</string>
+    <string name="completion_animation">Task completion animation</string>
+    <string name="task_saved_animation">Task Saved</string>
+    <string name="profile_update_success">Profile Updated Successfully</string>
 
 
 </resources>

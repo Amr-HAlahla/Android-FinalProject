@@ -4,6 +4,8 @@ package com.example.finalproject;
 import android.app.TimePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -217,9 +221,29 @@ public class NewTaskFragment extends Fragment {
 
         if (isSaved) {
             Toast.makeText(getContext(), getString(R.string.task_saved_successfully), Toast.LENGTH_SHORT).show();
+            showAnimation(); // Show the animation on successful save
             clearFields();
         } else {
             Toast.makeText(getContext(), getString(R.string.failed_to_save_task), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showAnimation() {
+        ImageView animationGif = getView().findViewById(R.id.animationGif);
+        if (animationGif != null) {
+            Glide.with(requireContext())
+                    .asGif()
+                    .load(R.drawable.task_saved2) // Replace with your actual GIF resource
+                    .into(animationGif);
+
+            animationGif.setVisibility(View.VISIBLE);
+
+            // Hide the animation after 2 seconds
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                if (animationGif != null) {
+                    animationGif.setVisibility(View.GONE);
+                }
+            }, 3000);
         }
     }
 
@@ -242,6 +266,5 @@ public class NewTaskFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // Optionally, set fragment width and height if needed
     }
 }

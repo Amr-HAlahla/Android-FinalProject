@@ -6,10 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +96,11 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     Task updatedTask = (Task) items.get(bindingAdapterPosition);
                     updatedTask.setCompleted(isChecked);
                     listener.onTaskCompleted(updatedTask, bindingAdapterPosition);
+
+                    // Show animation if task is marked as completed
+                    if (isChecked) {
+                        showCompletionAnimation(taskHolder.completionAnimationView);
+                    }
                 }
             });
 
@@ -128,6 +136,19 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+    private void showCompletionAnimation(ImageView animationView) {
+        if (animationView != null) {
+            animationView.setVisibility(View.VISIBLE);
+            Glide.with(context)
+                    .asGif()
+                    .load(R.drawable.task_completed_gif) // Replace with your GIF resource
+                    .into(animationView);
+
+            // Hide the animation after a delay
+            animationView.postDelayed(() -> animationView.setVisibility(View.GONE), 1000);
+        }
+    }
+
     @Override
     public int getItemCount() {
         return items.size();
@@ -153,6 +174,7 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView title, description, dueDate, priority, dueTime;
         CheckBox completedCheckbox;
         ImageButton btnEdit, btnDelete, btnSetNotification, btnShareEmail;
+        ImageView completionAnimationView; // Add an ImageView for the animation
 
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -166,6 +188,7 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             btnDelete = itemView.findViewById(R.id.btn_delete);
             btnSetNotification = itemView.findViewById(R.id.btn_set_notification);
             btnShareEmail = itemView.findViewById(R.id.btn_share_email);
+            completionAnimationView = itemView.findViewById(R.id.task_completion_animation); // New animation view
         }
     }
 
@@ -196,5 +219,4 @@ public class AllTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public List<Object> getItems() {
         return items;
     }
-
 }

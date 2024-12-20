@@ -3,6 +3,7 @@ package com.example.finalproject;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.bumptech.glide.Glide;
 import com.example.finalproject.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
@@ -55,6 +57,7 @@ public class ProfileFragment extends Fragment {
                         if (!email.equals(loggedInUserEmail)) {
                             updateLoggedInUserEmail(email);
                         }
+                        showSuccessAnimation();
                         Toast.makeText(getContext(), getString(R.string.profile_updated_successfully), Toast.LENGTH_SHORT).show();
                         clearFields();
                     } else {
@@ -147,6 +150,20 @@ public class ProfileFragment extends Fragment {
         return isEmailUpdated || isPasswordUpdated;
     }
 
+    private void showSuccessAnimation() {
+        // Make the animation visible
+        binding.successAnimationGif.setVisibility(View.VISIBLE);
+
+        // Load GIF using Glide
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.success_animation) // Replace with your GIF resource
+                .into(binding.successAnimationGif);
+
+        // Hide the animation after 2 seconds
+        new Handler().postDelayed(() -> binding.successAnimationGif.setVisibility(View.GONE), 1000);
+    }
+
     private String getLoggedInUserEmail() {
         SharedPreferences preferences = getContext().getSharedPreferences("TaskManagerPrefs", getContext().MODE_PRIVATE);
         return preferences.getString("logged_in_user", "");
@@ -162,7 +179,6 @@ public class ProfileFragment extends Fragment {
     private void clearFields() {
         binding.etCurrentPassword.setText("");
         binding.etPassword.setText("");
-        // Optionally, you can also update the email field if needed
     }
 
     /**

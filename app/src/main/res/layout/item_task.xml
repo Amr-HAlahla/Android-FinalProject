@@ -73,6 +73,18 @@
                 android:contentDescription="@string/mark_task_completed" />
         </LinearLayout>
 
+        <!-- GIF Animation for Task Completion -->
+        <ImageView
+            android:id="@+id/task_completion_animation"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/completion_animation"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkbox_label_layout" />
+
         <!-- Task Description -->
         <TextView
             android:id="@+id/task_description"
@@ -85,7 +97,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/checkbox_label_layout"
+            app:layout_constraintTop_toBottomOf="@id/task_completion_animation"
             tools:text="Finish the final project by the end of the week." />
 
         <!-- Due Date, Time, and Priority -->

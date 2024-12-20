@@ -138,6 +138,16 @@
                     app:cornerRadius="8dp" />
             </LinearLayout>
 
+            <!-- Animation GIF -->
+            <ImageView
+                android:id="@+id/animationGif"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/task_saved_animation"
+                android:visibility="gone" />
+
         </LinearLayout>
 
     </ScrollView>

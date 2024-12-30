@@ -44,7 +44,6 @@ public class TodayFragment extends Fragment implements TaskAdapter.OnTaskClickLi
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_today, container, false);
         setHeaderDate(rootView); // Set the day and date in the header
-
         db = new DatabaseHelper(requireContext());
         recyclerView = rootView.findViewById(R.id.recycler_today);
         noTasksTextView = rootView.findViewById(R.id.text_no_tasks);

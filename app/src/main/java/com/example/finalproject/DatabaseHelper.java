@@ -409,32 +409,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public List<Task> getTasksForDate(String date) {
-        List<Task> taskList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_TASKS + " WHERE " + COLUMN_DUE_DATE + " = ?";
-        Cursor cursor = db.rawQuery(query, new String[]{date});
-
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                @SuppressLint("Range") Task task = new Task(
-                        cursor.getInt(cursor.getColumnIndex(COLUMN_TASK_ID)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_TASK_TITLE)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_TASK_DESCRIPTION)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_DUE_DATE)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_DUE_TIME)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_PRIORITY)),
-                        cursor.getInt(cursor.getColumnIndex(COLUMN_COMPLETION_STATUS)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_REMINDER_TIME)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL))
-                );
-                taskList.add(task);
-            }
-            cursor.close();
-        }
-        return taskList;
-    }
-
     // Check if the email exists in the Users table
     public boolean isEmailExists(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -446,6 +420,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return exists;
     }
-
-
 }

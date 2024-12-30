@@ -56,7 +56,7 @@ public class AllTasksFragment extends Fragment implements AllTasksAdapter.AllTas
         loadDarkModePreference();
 
         fetchButton.setOnClickListener(v -> {
-            String apiUrl = "https://mocki.io/v1/cd78387e-9269-49b6-a6c7-0825d79c4c7b";
+            String apiUrl = "https://mocki.io/v1/f02d98c4-e32c-4626-87b1-6912fd4bea2b";
             new ConnectionAsyncTask(AllTasksFragment.this).execute(apiUrl);
         });
 
